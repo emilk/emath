@@ -4,8 +4,9 @@
 
 #include "math.hpp" // floor_to_int
 #include "range.hpp"
-#include "vec2.hpp" // Convenicence
-#include "vec3.hpp" // Convenicence
+#include "vec2.hpp" // Convenience
+#include "vec3.hpp" // Convenience
+#include "vec4.hpp" // Convenience
 
 namespace emath {
 
@@ -98,6 +99,12 @@ public:
 		assert(!list.empty());
 		return list[random_int((int)list.size())];
 	}
+
+	// Colors:
+	Vec3f dark_rgb();
+	Vec4f dark_rgba()   { return {dark_rgb(),   1.0f}; }
+	Vec3f bright_rgb();
+	Vec4f bright_rgba() { return {bright_rgb(), 1.0f}; }
 
 private:
 	using MyRNG  = std::mt19937;
