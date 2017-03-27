@@ -1,6 +1,8 @@
 // Version 1.1
 #pragma once
 
+#include <cassert>
+
 #include "fwd.hpp"
 #include "int.hpp" // is_power_of_two, HUGE_PRIME_0
 #include "math.hpp"

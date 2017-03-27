@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cassert>
+
 #include "fwd.hpp"
 #include "util.hpp"
 #include "aabb.hpp"

@@ -165,7 +165,7 @@ namespace emath {
 
 	// ----------------------------------------------------------------------------
 
-	// For t=[0,1], returns [0,1] with a derivate of zero at both ends
+	/// For t=[0,1], returns [0,1] with a derivate of zero at both ends
 	template<typename T>
 	constexpr T ease_in_ease_out(T t)
 	{
@@ -292,13 +292,6 @@ namespace emath {
 		float t2 = t*t;
 		float t3 = t2*t;
 		return (2*t3 - 3*t2 + 1)*p0 + (t3 - 2*t2 + t)*m0 + (-2*t3 + 3*t2)*p1 + (t3 - t2)*m1;
-	}
-
-	// For t=[0,1], returns [0,1] with a derivate of zero at both ends
-	template<typename T>
-	constexpr T ease_in_ease_out(T t)
-	{
-		return 3*t*t - 2*t*t*t;
 	}
 
 	// normalized sinc function
