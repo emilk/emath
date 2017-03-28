@@ -19,9 +19,9 @@ namespace emath
 	{
 		/*
 		 Alternate homebrew solution (by emilk):
-		 Mat3 a(a.GetNormal(), b.GetNormal(), c.GetNormal());
-		 Vec3 b(-a.GetDist(),  -b.GetDist(),  -c.GetDist());
-		 a * x = b;, so x = Inverse(a) * b; Easy as pie =)
+		 Mat3 a(a.normal(), b.normal(), c.normal());
+		 Vec3 b(-a.distance(),  -b.distance(),  -c.distance());
+		 a * x = b;, so x = inverse(a) * b; Easy as pie =)
 		 Hasn't yet been tested, but seems sound.
 		 Infact, it seems to be exactly what is going on below, only more verbose.
 		 */
@@ -29,22 +29,23 @@ namespace emath
 		Plane planes[3]	= {a,b,c};
 		Vec3  normals[3];
 
-		for (int i=0; i<3; ++i)
+		for (int i=0; i<3; ++i) {
 			normals[i] = planes[i].normal();
+		}
 
 		real det =
-		+ normals[0].x * normals[1].y * normals[2].z
-		+ normals[0].y * normals[1].z * normals[2].x
-		+ normals[0].z * normals[1].x * normals[2].y
+			+ normals[0].x * normals[1].y * normals[2].z
+			+ normals[0].y * normals[1].z * normals[2].x
+			+ normals[0].z * normals[1].x * normals[2].y
 
-		- normals[0].x * normals[1].z * normals[2].y
-		- normals[0].y * normals[1].x * normals[2].z
-		- normals[0].z * normals[1].y * normals[2].x;
+			- normals[0].x * normals[1].z * normals[2].y
+			- normals[0].y * normals[1].x * normals[2].z
+			- normals[0].z * normals[1].y * normals[2].x;
 
 		Vec3 top =
-		cross(normals[1], normals[2]) * -planes[0].distance() +
-		cross(normals[2], normals[0]) * -planes[1].distance() +
-		cross(normals[0], normals[1]) * -planes[2].distance();
+			cross(normals[1], normals[2]) * -planes[0].distance() +
+			cross(normals[2], normals[0]) * -planes[1].distance() +
+			cross(normals[0], normals[1]) * -planes[2].distance();
 
 		return top / det;
 	}
@@ -63,7 +64,7 @@ namespace emath
 		// A point on the old plane
 		Vec3 point = -_normal * _dist;
 
-		//DASSERT(IsZero(0.01f*Distance(point)));
+		//ASSERT_CODE(IsZero(0.01f*Distance(point)));
 
 		// Transform the normal
 		_normal =  m * _normal;
@@ -74,7 +75,7 @@ namespace emath
 		// And calculate the distance to the new point
 		_dist = -dot(_normal, new_point);
 
-		//DASSERT(IsZero(0.01f*Distance(new_point)));
+		//ASSERT_CODE(IsZero(0.01f*Distance(new_point)));
 
 		normalize();
 	}
@@ -82,8 +83,8 @@ namespace emath
 
 	void Plane::normalize()
 	{
-		real magnitude = 1 / length(_normal);
-		_normal *= magnitude;
-		_dist   *= magnitude;
+		auto inv_length = 1.0f / length(_normal);
+		_normal *= inv_length;
+		_dist   *= inv_length;
 	}
 }

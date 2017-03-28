@@ -1,4 +1,10 @@
 #pragma once
+/*
+ Author: Emil Ernerfeldt
+ Created for Life, 2007-01
+ Adopted from DH-Demo 2005
+ Adapted for Voxel Shooter 2013
+ */
 
 #include "mat4.hpp"
 
@@ -9,20 +15,17 @@ namespace emath
 	public:
 		Plane() : _normal(0,0,0), _dist(0) {}
 
-		Plane(real a, real b, real c, real d)
-		: _normal(a, b, c), _dist(d)
+		Plane(real a, real b, real c, real d) : _normal(a, b, c), _dist(d)
 		{
 			normalize();
 		}
 
-		Plane(const Vec3& v, real d)
-		: _normal(v), _dist(d)
+		Plane(const Vec3& v, real d) : _normal(v), _dist(d)
 		{
 			normalize();
 		}
 
-		explicit Plane(const Vec4& v)
-		: _normal(v.x, v.y, v.z), _dist(v.w)
+		explicit Plane(const Vec4& v) : _normal(v.x, v.y, v.z), _dist(v.w)
 		{
 			normalize();
 		}

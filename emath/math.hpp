@@ -187,6 +187,8 @@ namespace emath {
 	const double EPSd = Eps<double>();
 	const float  EPSf = Eps<float>();
 
+	const float SQRT_3 = std::sqrt(3.0f); // Box: outer radius over inner
+
 	// ------------------------------------------------
 
 	template<typename F>

@@ -77,12 +77,12 @@ public:
 		return { random_normal(), random_normal(), random_normal() };
 	}
 
-	inline Vec2 random_dir2D()
+	inline Vec2 random_dir_2d()
 	{
 		return vec2_angled(random_angle());
 	}
 
-	inline Vec3 random_dir3D()
+	inline Vec3 random_dir_3d()
 	{
 		Vec3 ret;
 		do ret = random_normal_vec3(); while (length_sq(ret) == 0);

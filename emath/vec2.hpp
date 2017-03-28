@@ -163,32 +163,32 @@ Vec2T<T>& operator*=(Vec2T<T>& a, T s)
 template<typename T>
 constexpr const Vec2T<T> operator+(const Vec2T<T>& a, const Vec2T<T>& b)
 {
-	return {a.x+b.x, a.y+b.y};
+	return Vec2T<T>(a.x + b.x, a.y + b.y);
 }
 
 template<typename T>
 constexpr const Vec2T<T> operator-(const Vec2T<T>& a, const Vec2T<T>& b)
 {
-	return {a.x-b.x, a.y-b.y};
+	return Vec2T<T>(a.x - b.x, a.y - b.y);
 }
 
 template<typename T>
 constexpr auto operator*(T s, const Vec2T<T>& a) -> Vec2T<decltype(s*a.x)>
 {
-	return {s*a.x, s*a.y};
+	return {s * a.x, s * a.y};
 }
 
 template<typename T, typename S>
 constexpr auto operator*(const Vec2T<T>& a, S s) -> Vec2T<decltype(a.x*s)>
 {
-	return {a.x*s, a.y*s};
+	return {a.x * s, a.y * s};
 }
 
 #if 1
 template<typename T, typename S>
 constexpr auto operator/(const Vec2T<T>& a, S s) -> Vec2T<decltype(a.x/s)>
 {
-	return {a.x/s, a.y/s};
+	return {a.x / s, a.y / s};
 }
 #else
 constexpr Vec2 operator/(const Vec2& a, real s)

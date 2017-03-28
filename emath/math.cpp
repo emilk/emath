@@ -1,6 +1,4 @@
 //  Created by Emil Ernerfeldt on 2012-10-15.
-//  Copyright (c) 2015 Emil Ernerfeldt. All rights reserved.
-//
 
 #include "math.hpp"
 #include "fwd.hpp"

@@ -42,7 +42,7 @@ namespace emath
 
 		// returns true iff point is on the left of the line.
 		// (where p[1]-p[0] is forwards)
-		bool is_pointOnTheLeft(const Vec2& point) const
+		bool is_point_on_the_left(const Vec2& point) const
 		{
 			// There's room for optimization here
 			return dot(emath::rot90CCW(p1-p0), point-p0) > 0;
@@ -60,9 +60,9 @@ namespace emath
 		}
 
 		// Is the ray approaching this linesegment?
-		bool is_approachedBy(const Ray& ray) const
+		bool is_approached_by(const Ray& ray) const
 		{
-			return is_pointOnTheLeft(ray.o) == from_left_to_right(ray.d);
+			return is_point_on_the_left(ray.o) == from_left_to_right(ray.d);
 		}
 	};
 

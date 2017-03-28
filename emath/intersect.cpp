@@ -1,6 +1,4 @@
 //  Created by Emil Ernerfeldt on 2013-02-16.
-//  Copyright (c) 2015 Emil Ernerfeldt. All rights reserved.
-//
 
 #include "intersect.hpp"
 #include "plane.hpp"

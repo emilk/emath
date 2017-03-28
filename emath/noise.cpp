@@ -1,6 +1,4 @@
 //  Created by Emil Ernerfeldt on 2013-02-16.
-//  Copyright (c) 2015 Emil Ernerfeldt. All rights reserved.
-//
 
 #include "fwd.hpp" // vec2 etc
 #include "noise.hpp"
@@ -182,7 +180,8 @@ namespace emath
 	}
 
 	// 3D simplex noise
-	real noise_3d(real xin, real yin, real zin) {
+	real noise_3d(real xin, real yin, real zin)
+	{
 		real n0, n1, n2, n3; // Noise contributions from the four corners
 		// Skew the input space to determine which simplex cell we're in
 		real s = (xin+yin+zin)*F3; // Very nice and simple skew factor for 3D

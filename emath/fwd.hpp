@@ -89,12 +89,14 @@ namespace emath
 
 		// ------------------------------------------------
 
-		T* data() {
+		T* data()
+		{
 			static_assert(offsetof(Vec2T<T>, x) == 0 * sizeof(T), "Pack better");
 			static_assert(offsetof(Vec2T<T>, y) == 1 * sizeof(T), "Pack better");
 			return &x;
 		}
-		const T* data() const {
+		const T* data() const
+		{
 			static_assert(offsetof(Vec2T<T>, x) == 0 * sizeof(T), "Pack better");
 			static_assert(offsetof(Vec2T<T>, y) == 1 * sizeof(T), "Pack better");
 			return &x;

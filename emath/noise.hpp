@@ -1,5 +1,7 @@
+// Created 2013-02-16.
 #pragma once
 
+#include "fwd.hpp" // vec4 etc
 #include "math.hpp" // real
 
 namespace emath
@@ -14,7 +16,6 @@ namespace emath
 	real noise_3d(real x, real y, real z);
 	real noise_4d(real x, real y, real z, real w);
 
-
 	// Multi-octave Simplex noise
 	// For each octave, a higher frequency/lower amplitude function will be added to the original.
 	// The higher the persistence [0-1], the more of each succeeding octave will be added.
@@ -27,7 +28,6 @@ namespace emath
 								 float x, float y, float z);
 	float octave_noise_4d(unsigned octaves, float persistence,
 								 float x, float y, float z, float w);
-
 
 	// ----------------------------------------------------------------------
 	// 1d -> 2d, 3d, 4d:
@@ -64,7 +64,6 @@ namespace emath
 		};
 	}
 
-
 	// ----------------------------------------------------------------------
 	// 2d -> 2d, 3d, 4d:
 
@@ -99,7 +98,6 @@ namespace emath
 			octave_noise_2d(octaves, persistence, p.x, p.y + 21 + seed),
 		};
 	}
-
 
 	// ----------------------------------------------------------------------
 	// 3d -> 2d, 3d, 4d:
@@ -136,7 +134,6 @@ namespace emath
 		};
 	}
 
-
 	// ----------------------------------------------------------------------
 	// 4d -> 2d, 3d, 4d:
 
@@ -171,4 +168,4 @@ namespace emath
 			octave_noise_4d(octaves, persistence, p.x, p.y, p.z, p.w + 21 + seed),
 		};
 	}
-}
+} // namespace emath

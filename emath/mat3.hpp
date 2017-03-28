@@ -47,9 +47,9 @@ namespace emath
 
 		inline static Mat3T translate(T x, T y);
 		inline static Mat3T translate(const emath::Vec2& v) { return translate((T)v.x, (T)v.y); }
-		inline static Mat3T rotateX(T rad);
-		inline static Mat3T rotateY(T rad);
-		inline static Mat3T rotateZ(T rad);
+		inline static Mat3T rotate_x(T rad);
+		inline static Mat3T rotate_y(T rad);
+		inline static Mat3T rotate_z(T rad);
 		inline static Mat3T scale(T x, T y);
 		inline static Mat3T scale(const emath::Vec2& v) { return scale((T)v.x, (T)v.y); }
 
@@ -245,7 +245,7 @@ namespace emath
 	}
 
 	template<typename T>
-	inline Mat3T<T> Mat3T<T>::rotateX(T rad)
+	inline Mat3T<T> Mat3T<T>::rotate_x(T rad)
 	{
 		T c = cosf(rad);
 		T s = sinf(rad);
@@ -255,7 +255,7 @@ namespace emath
 	}
 
 	template<typename T>
-	inline Mat3T<T> Mat3T<T>::rotateY(T rad)
+	inline Mat3T<T> Mat3T<T>::rotate_y(T rad)
 	{
 		T c = cosf(rad);
 		T s = sinf(rad);
@@ -265,7 +265,7 @@ namespace emath
 	}
 
 	template<typename T>
-	inline Mat3T<T> Mat3T<T>::rotateZ(T rad)
+	inline Mat3T<T> Mat3T<T>::rotate_z(T rad)
 	{
 		T c = cosf(rad);
 		T s = sinf(rad);

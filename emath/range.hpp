@@ -123,7 +123,7 @@ namespace emath
 		}
 
 		// Returns the smallest integer RangeI completely containing this RangeFloat
-		RangeI to_alignedRange() const
+		RangeI to_aligned_range() const
 		{
 			return RangeI(floor_to_int(_min), ceil_to_int(_max));
 		}

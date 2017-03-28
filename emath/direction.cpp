@@ -1,6 +1,4 @@
 //  Created by Emil Ernerfeldt on 2013-02-23.
-//  Copyright (c) 2015 Emil Ernerfeldt. All rights reserved.
-//
 
 #include "direction.hpp"
 #include "quaternion.hpp"

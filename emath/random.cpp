@@ -1,6 +1,4 @@
 //  Created by Emil Ernerfeldt on 2012-06-09.
-//  Copyright (c) 2015 Emil Ernerfeldt AB. All rights reserved.
-//
 
 #include "random.hpp"
 

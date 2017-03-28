@@ -14,8 +14,7 @@ namespace emath {
 //	}
 
 template<typename T, class Tag>
-inline Vec4T<T, Tag>::Vec4T(T v)
-:x(v), y(v), z(v), w(v)
+inline Vec4T<T, Tag>::Vec4T(T v) : x(v), y(v), z(v), w(v)
 {
 }
 
@@ -39,7 +38,17 @@ inline Vec4T<T, Tag>& operator =  (const Vec4T<T, Tag>& a, const Vec4T<T, Tag>& 
  */
 
 template<typename T, class Tag>
-inline Vec4T<T, Tag>  operator +  (const Vec4T<T, Tag>& a, const Vec4T<T, Tag>& b)
+constexpr Vec4T<T, Tag> operator+(const Vec4T<T, Tag>& v) {
+	return {+v.x, +v.y, +v.z, +v.w};
+}
+
+template<typename T, class Tag>
+constexpr Vec4T<T, Tag> operator-(const Vec4T<T, Tag>& v) {
+	return {-v.x, -v.y, -v.z, -v.w};
+}
+
+template<typename T, class Tag>
+inline Vec4T<T, Tag>  operator+(const Vec4T<T, Tag>& a, const Vec4T<T, Tag>& b)
 {
 	return {a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w};
 }
@@ -56,7 +65,7 @@ inline Vec4T<T, Tag>& operator += (Vec4T<T, Tag>& a, const Vec4T<T, Tag>& b)
 }
 
 template<typename T, class Tag>
-inline Vec4T<T, Tag>  operator -  (const Vec4T<T, Tag>& a, const Vec4T<T, Tag>& b)
+inline Vec4T<T, Tag>  operator-(const Vec4T<T, Tag>& a, const Vec4T<T, Tag>& b)
 {
 	return {a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w};
 }

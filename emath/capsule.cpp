@@ -1,6 +1,4 @@
 //  Created by Emil Ernerfeldt on 2012-09-10.
-//  Copyright (c) 2015 Emil Ernerfeldt. All rights reserved.
-//
 
 #include "capsule.hpp"
 #include "aabb.hpp"
@@ -83,14 +81,13 @@ namespace emath
 		out_t0 = (abs(N_0) < SMALL_NUM ? 0.0 : N_0 / D_0);
 		out_t1 = (abs(N_1) < SMALL_NUM ? 0.0 : N_1 / D_1);
 
-		out_dist_sq = (w + out_t0*d0 - out_t1*d1).len_sq();
-		//real dist = (w + t0*d0 - t1*d1).len();
+		out_dist_sq = length_sq((w + out_t0*d0 - out_t1*d1));
 	}
 
 	// ------------------------------------------------
 
 	// Is 'point' left of the line from p0 to p1?
-	inline bool is_pointLeftOf(Vec2 p0, Vec2 p1, Vec2 point)
+	inline bool is_point_left_of(Vec2 p0, Vec2 p1, Vec2 point)
 	{
 		// There's room for optimization here
 		return dot(rot90CCW(p1-p0), point-p0) > 0;
@@ -146,7 +143,7 @@ namespace emath
 		if (! ray_ray(p0,d0,p1,d1,t0,t1))
 			return false;
 
-		/* Ensure dist(p0+t0*d0, p1+t1*d1) = r0+r1;
+		/* Ensure distance(p0+t0*d0, p1+t1*d1) = r0+r1;
 		 */
 	}
 #endif
@@ -158,10 +155,10 @@ namespace emath
 		//Optimization time: the == are true if both sides have the same sign
 		//This is the same as multiplying them and making sure the result is positive
 
-		if (is_pointLeftOf(a0, a1, b0) == is_pointLeftOf(a0, a1, b1))
+		if (is_point_left_of(a0, a1, b0) == is_point_left_of(a0, a1, b1))
 			return false;
 
-		if (is_pointLeftOf(b0, b1, a0) == is_pointLeftOf(b0, b1, a1))
+		if (is_point_left_of(b0, b1, a0) == is_point_left_of(b0, b1, a1))
 			return false;
 #else
 		// so, >= or >? >= will include hits if any vertices are the same. seems reasonable to me that.
@@ -296,17 +293,17 @@ namespace emath
 	bool Capsule::intersects(const Capsule& a, const Capsule& b)
 	{
 		if (a.is_circle())
-			return dist(b, a.p[0]) < a.rad;
+			return distance(b, a.p[0]) < a.rad;
 		if (b.is_circle())
-			return dist(a, b.p[0]) < b.rad;
+			return distance(a, b.p[0]) < b.rad;
 
 		if (line_segment_intersect_test(a.p[0], a.p[1], b.p[0], b.p[1], nullptr))
 			return true;
 
 		for (int i=0; i<2; ++i) {
-			if (dist(a, b.p[i]) < b.rad)
+			if (distance(a, b.p[i]) < b.rad)
 				return true;
-			if (dist(b, a.p[i]) < a.rad)
+			if (distance(b, a.p[i]) < a.rad)
 				return true;
 		}
 

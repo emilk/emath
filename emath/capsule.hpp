@@ -97,13 +97,13 @@ namespace emath
 
 	// ------------------------------------------------
 
-	inline real dist(const Capsule& cap, const Vec2& p) {
+	inline real distance(const Capsule& cap, const Vec2& p) {
 		Vec2 ls_closest = cap.line_seg.closest_point(p);
 		return distance(ls_closest, p) - cap.rad;
 	}
 
-	inline real dist(const Capsule& cap, const Circle& circ) {
-		return dist(cap, circ.p)-circ.rad;
+	inline real distance(const Capsule& cap, const Circle& circ) {
+		return distance(cap, circ.p)-circ.rad;
 	}
 
 	inline bool operator==(const Capsule& a, const Capsule& b) {

@@ -264,7 +264,42 @@ inline Vec3 project_onto(Vec3 v, Vec3 up)
 {
 	return v - up * dot(v, up);
 }
+
+// -----------------------------------------------------
+
+template<typename T, class Tag>
+T min(const Vec3T<T,Tag>& v)
+{
+	return min3(v.x, v.y, v.z);
+}
+
+template<typename T, class Tag>
+T max(const Vec3T<T,Tag>& v)
+{
+	return max3(v.x, v.y, v.z);
+}
+
+template<typename T, class Tag>
+unsigned min_axis(const Vec3T<T,Tag>& v)
+{
+	return (v.x <= v.y && v.x <= v.z ? 0 : v.y <= v.x && v.y <= v.z ? 1 : 2);
+}
+
+template<typename T, class Tag>
+unsigned max_axis(const Vec3T<T,Tag>& v)
+{
+	return (v.x >= v.y && v.x >= v.z ? 0 : v.y >= v.x && v.y >= v.z ? 1 : 2);
+}
+
+template<typename T, class Tag>
+unsigned max_abs_axis(const Vec3T<T,Tag>& v)
+{
+	return max_axis(abs(v));
+}
+
 } // namespace emath
+
+// ----------------------------------------------------------------------------
 
 namespace std {
 inline bool isfinite(emath::Vec3 v)
