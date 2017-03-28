@@ -1,4 +1,5 @@
 #include "capsule.cpp"
+#include "frustum.cpp"
 #include "direction.cpp"
 #include "intersect.cpp"
 #include "math.cpp"
