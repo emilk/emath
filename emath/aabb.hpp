@@ -140,50 +140,60 @@ private:
 
 // ------------------------------------------------
 using AABB  = AABB_T<real>;
+using AABBf = AABB_T<float>;
+using AABBd = AABB_T<double>;
 using AABBi = AABB_T<int>;
 
 // ------------------------------------------------
 // Implementations
 
 template<typename T>
-inline const AABB_T<T> AABB_T<T>::from_points(std::initializer_list<V> list) {
+inline const AABB_T<T> AABB_T<T>::from_points(std::initializer_list<V> list)
+{
 	assert(list.size()>0);
 	auto data = list.begin();
 	AABB_T ret = {data[0], data[0]};
-	for (auto& v : list)
+	for (auto& v : list) {
 		ret.include(v);
+	}
 	return ret;
 }
 
 template<typename T>
-inline const AABB_T<T> AABB_T<T>::from_min_max(const V& min, const V& max) {
+inline const AABB_T<T> AABB_T<T>::from_min_max(const V& min, const V& max)
+{
 	return AABB_T(min, max);
 }
 
 template<typename T>
-inline const AABB_T<T> AABB_T<T>::from_min_size(const V& min, const V& size) {
+inline const AABB_T<T> AABB_T<T>::from_min_size(const V& min, const V& size)
+{
 	return AABB_T(min, min+size);
 }
 
 template<typename T>
-inline const AABB_T<T> AABB_T<T>::from_center_size(const V& center, const V& size) {
+inline const AABB_T<T> AABB_T<T>::from_center_size(const V& center, const V& size)
+{
 	V hs = size/2;
 	return AABB_T(center-hs, center+hs);
 }
 
 template<typename T>
-inline const AABB_T<T> AABB_T<T>::everything() {
+inline const AABB_T<T> AABB_T<T>::everything()
+{
 	return from_min_max({-INF<T>, -INF<T>}, {+INF<T>, +INF<T>});
 }
 
 template<typename T>
-inline const AABB_T<T> AABB_T<T>::nothing() {
+inline const AABB_T<T> AABB_T<T>::nothing()
+{
 	return from_min_max({+INF<T>, +INF<T>}, {-INF<T>, -INF<T>});
 }
 
 // ------------------------------------------------
 
-inline AABB lerp(const AABB& a, const AABB& b, float t) {
+inline AABB lerp(const AABB& a, const AABB& b, float t)
+{
 	return AABB::from_center_size(
 		lerp(a.center(), b.center(), t),
 		lerp(a.size(),   b.size(),   t)

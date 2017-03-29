@@ -2,10 +2,9 @@
 
 #include <cassert>
 
-#include "fwd.hpp"
-#include "util.hpp"
 #include "aabb.hpp"
 #include "circle.hpp"
+#include "fwd.hpp"
 #include "line_seg.hpp"
 
 namespace emath

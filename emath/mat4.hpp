@@ -441,10 +441,11 @@ namespace emath
 	template<typename T>
 	inline Mat4T<T> Mat4T<T>::scale(T x, T y, T z)
 	{
-		return Mat4T(x,0,0,0,
-						0,y,0,0,
-						0,0,z,0,
-						0,0,0,1);
+		return Mat4T(
+			x,0,0,0,
+			0,y,0,0,
+			0,0,z,0,
+			0,0,0,1);
 	}
 
 #if 0
@@ -506,28 +507,19 @@ namespace emath
 		auto xaxis = cross(up, zaxis); normalize(xaxis);
 		auto yaxis = cross(zaxis, xaxis);
 
-#if 0
-		// transposed
 		return Mat4T(
-						xaxis.x,	xaxis.y,	xaxis.z,	-dot(xaxis, eye),
-						yaxis.x,	yaxis.y,	yaxis.z,	-dot(yaxis, eye),
-						zaxis.x,	zaxis.y,	zaxis.z,	-dot(zaxis, eye),
-						0,       0,       0,               1);
-#else
-		return Mat4T(
-						xaxis.x,           yaxis.x,           zaxis.x,           0,
-						xaxis.y,           yaxis.y,           zaxis.y,           0,
-						xaxis.z,           yaxis.z,           zaxis.z,           0,
-						-dot(xaxis, eye),  -dot(yaxis, eye),  -dot(zaxis, eye),  1);
-#endif
+			xaxis.x,          yaxis.x,          zaxis.x,          0,
+			xaxis.y,          yaxis.y,          zaxis.y,          0,
+			xaxis.z,          yaxis.z,          zaxis.z,          0,
+			-dot(xaxis, eye), -dot(yaxis, eye), -dot(zaxis, eye), 1);
 	}
 
 	template<typename T>
 	inline Mat4T<T> Mat4T<T>::ortho(const Vec2T<T>& size, bool y_increases_down)
 	{
-		const T ySign = (y_increases_down ? -1 : +1); // -1 means "y increases downwards"
-		Mat4T mat = Mat4T<T>::translate(-1.0f, ySign * -1.0f, 0.0f);
-		mat     *= Mat4T<T>::scale(2.0f/size.x, ySign * 2.0f/size.y, 1.0f);
+		const T y_sign = (y_increases_down ? -1 : +1);
+		Mat4T mat = Mat4T<T>::translate(-1.0f, y_sign * -1.0f, 0.0f);
+		mat *= Mat4T<T>::scale(2.0f/size.x, y_sign * 2.0f/size.y, 1.0f);
 		return mat;
 	}
 
@@ -637,19 +629,11 @@ namespace emath
 	template<typename T>
 	inline Vec4T<T> mul(const Mat4T<T>& m, const Vec4T<T>& p)
 	{
-#if 0
-		// transposed
-		return Vec4(m.mat[0][0]*p[0] + m.mat[0][1]*p[1] + m.mat[0][2]*p[2] + m.mat[0][3]*p[3],
-						m.mat[1][0]*p[0] + m.mat[1][1]*p[1] + m.mat[1][2]*p[2] + m.mat[1][3]*p[3],
-						m.mat[2][0]*p[0] + m.mat[2][1]*p[1] + m.mat[2][2]*p[2] + m.mat[2][3]*p[3],
-						m.mat[3][0]*p[0] + m.mat[3][1]*p[1] + m.mat[3][2]*p[2] + m.mat[3][3]*p[3]);
-#else
 		return Vec4(
 			m.mat[0][0]*p[0] + m.mat[1][0]*p[1] + m.mat[2][0]*p[2] + m.mat[3][0]*p[3],
 			m.mat[0][1]*p[0] + m.mat[1][1]*p[1] + m.mat[2][1]*p[2] + m.mat[3][1]*p[3],
 			m.mat[0][2]*p[0] + m.mat[1][2]*p[1] + m.mat[2][2]*p[2] + m.mat[3][2]*p[3],
 			m.mat[0][3]*p[0] + m.mat[1][3]*p[1] + m.mat[2][3]*p[2] + m.mat[3][3]*p[3]);
-#endif
 	}
 
 	template<typename T>
