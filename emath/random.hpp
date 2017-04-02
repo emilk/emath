@@ -21,47 +21,57 @@ public:
 	explicit Random(unsigned seed) : _rand(seed) {}
 	explicit Random(const char* seed); // Will hash 'seed'
 
-	// [0,1)
-	inline float random_float() {
+	/// [0,1)
+	inline float random_float()
+	{
 		return _rand() / (_rand.max() + 1.0f);
 	}
 
-	inline float random_uniform(float max) {
+	/// [0,max)
+	inline float random_uniform(float max)
+	{
 		return random_float() * max;
 	}
 
-	inline Vec2 random_uniform(const Vec2& max) {
+	inline Vec2 random_uniform(const Vec2& max)
+	{
 		return { random_float()*max.x, random_float()*max.y };
 	}
 
-	inline Vec3 random_uniform(const Vec3& max) {
+	inline Vec3 random_uniform(const Vec3& max)
+	{
 		return { random_float()*max.x, random_float()*max.y, random_float()*max.z };
 	}
 
-	inline float random_angle() {
+	inline float random_angle()
+	{
 		return random_uniform(emath::TAUf);
 	}
 
-	inline int random_sign() {
+	inline int random_sign()
+	{
 		return random_bool() ? +1 : -1;
 	}
 
-	// [0, max)
-	inline int random_int(int max) {
+	/// [0, max)
+	inline int random_int(int max)
+	{
 		return floor_to_int(random_float() * max);
 	}
 
-	// [min, max)
-	inline float random_interval(float min, float max) {
+	/// [min, max)
+	inline float random_interval(float min, float max)
+	{
 		return min + random_float()*(max-min);
 	}
 
 	// [min, max)
-	inline float range(const RangeF& r) {
+	inline float range(const RangeF& r)
+	{
 		return r.min() + random_float()*(r.max() - r.min());
 	}
 
-	// Gaussian distribution with mean=0 and varaiance=1
+	// Gaussian distribution with mean=0 and variance=1
 	real random_normal()
 	{
 		return _normal( _rand );
@@ -89,7 +99,8 @@ public:
 		return normalized(ret);
 	}
 
-	inline bool random_bool() {
+	inline bool random_bool()
+	{
 		return (_rand() & 1)!=0;
 	}
 

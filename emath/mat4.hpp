@@ -130,7 +130,8 @@ namespace emath
 		inline static Mat4T from_rot_mat(const Mat3T<T>& m);
 		inline static Mat4T from_mat_2d(const Mat3T<T>& m);
 
-		inline static Mat4T from_pos_angle_2d(Vec2T<T> translation, float angle_z) {
+		inline static Mat4T from_pos_angle_2d(Vec2T<T> translation, float angle_z)
+		{
 			return Mat4T::translate_2d(translation) * Mat4T::rotate_z(angle_z);
 		}
 	};
@@ -489,7 +490,7 @@ namespace emath
 	template<typename T>
 	inline Mat4T<T> Mat4T<T>::perspective(T fov_yin_deg, T aspect, T n, T f)
 	{
-		T top = n * std::tan(emath::deg2rad(fov_yin_deg) / 2);
+		T top = n * std::tan(emath::rad_from_deg(fov_yin_deg) / 2);
 		T right = top * aspect;
 
 		return Mat4T(

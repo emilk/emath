@@ -153,12 +153,12 @@ namespace emath {
 
 	// ----------------------------------------------------------------------------
 
-	inline float deg2rad(float a)
+	inline float rad_from_deg(float a)
 	{
 		return a * PIf / 180;
 	}
 
-	inline float rad2deg(float a)
+	inline float deg_from_rad(float a)
 	{
 		return a * 180 / PIf;
 	}
