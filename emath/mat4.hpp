@@ -128,7 +128,7 @@ namespace emath
 		inline static Mat4T transform(const Vec3T<T>& pos, const Vec3T<T>& rot);
 
 		inline static Mat4T from_rot_mat(const Mat3T<T>& m);
-		inline static Mat4T from_mat2D(const Mat3T<T>& m);
+		inline static Mat4T from_mat_2d(const Mat3T<T>& m);
 
 		inline static Mat4T from_pos_angle_2d(Vec2T<T> translation, float angle_z) {
 			return Mat4T::translate_2d(translation) * Mat4T::rotate_z(angle_z);
@@ -543,7 +543,7 @@ namespace emath
 	}
 
 	template<typename T>
-	inline Mat4T<T> Mat4T<T>::from_mat2D(const Mat3T<T>& m) {
+	inline Mat4T<T> Mat4T<T>::from_mat_2d(const Mat3T<T>& m) {
 		return {
 			m.M(0,0), m.M(0,1), 0,  m.M(0,2),
 			m.M(1,0), m.M(1,1), 0,  m.M(1,2),
