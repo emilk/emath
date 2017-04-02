@@ -69,7 +69,7 @@ public:
 	}
 
 	// <= 0 if inside.
-	T dist_to(const V& v) const
+	T distance_to(const V& v) const
 	{
 		if (contains(v)) {
 			// Project v unto the closest of _min/_max on all dimensions
@@ -83,9 +83,9 @@ public:
 			}
 
 			// Now p is the closest corner
-			return - min(std::abs(p[0] - v[0]), std::abs(p[1] - v[1]));
+			return - std::min(std::abs(p[0] - v[0]), std::abs(p[1] - v[1]));
 		} else {
-			return dist(v, clamp(v));
+			return distance(v, clamp(v));
 		}
 	}
 

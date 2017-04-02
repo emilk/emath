@@ -306,7 +306,7 @@ namespace emath
 	template<typename T>
 	inline float Mat4T<T>::scaling() const
 	{
-		return std::cbrt(upper_left3x3().determinant());
+		return std::cbrt(emath::determinant(upper_left3x3()));
 	}
 
 	template<typename T>

@@ -30,6 +30,7 @@ namespace emath
 
 		inline       T* data()       { return &mat[0][0]; }
 		inline const T* data() const { return &mat[0][0]; }
+
 		inline Mat3T inverse() const;
 
 		inline T*             operator [] (int row);
@@ -103,7 +104,8 @@ namespace emath
 	}
 
 	template<typename T>
-	inline Mat3T<T> transposed(const Mat3T<T>& arg) {
+	inline Mat3T<T> transposed(const Mat3T<T>& arg)
+	{
 		auto& m = arg.mat;
 
 		return Mat3T<T>{
@@ -111,6 +113,18 @@ namespace emath
 			m[0][1],  m[1][1],  m[2][1],
 			m[0][2],  m[1][2],  m[2][2]
 		};
+	}
+
+	template<typename T>
+	inline T determinant(const Mat3T<T>& m)
+	{
+		return
+			+ m.M(0,0) * m.M(1,1) * m.M(2,2)
+			- m.M(0,0) * m.M(1,2) * m.M(2,1)
+			+ m.M(0,1) * m.M(1,2) * m.M(2,0)
+			- m.M(0,1) * m.M(1,0) * m.M(2,2)
+			+ m.M(0,2) * m.M(1,0) * m.M(2,1)
+			- m.M(0,2) * m.M(1,1) * m.M(2,0);
 	}
 
 	template<typename T>
