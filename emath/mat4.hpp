@@ -83,16 +83,24 @@ namespace emath
 		inline Vec2  dir_z() const;
 		inline float angle_z() const;
 
-		inline Mat3 upper_left3x3() const
+		inline Mat3T<T> upper_left3x3() const
 		{
-			return Mat3(
+			return Mat3T<T>(
 				mat[0][0], mat[0][1], mat[0][2],
 				mat[1][0], mat[1][1], mat[1][2],
 				mat[2][0], mat[2][1], mat[2][2]);
 		}
 
+		Mat3T<T> as_2d() const
+		{
+			return Mat3T<T>(
+				mat[0][0], mat[0][1], mat[0][3],
+				mat[1][0], mat[1][1], mat[1][3],
+				mat[3][0], mat[3][1], mat[3][3]);
+		}
+
 		// Use the returned matrix to transform normals (directions)
-		inline Mat3 normal_transformer() const
+		inline Mat3T<T> normal_transformer() const
 		{
 			return transposed(inverted(upper_left3x3()));
 		}

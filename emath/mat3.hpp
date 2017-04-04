@@ -1,8 +1,9 @@
 #pragma once
 
+#include <loguru.hpp>
+
 #include "vec2.hpp"
 #include "vec3.hpp"
-#include <loguru.hpp>
 
 namespace emath
 {

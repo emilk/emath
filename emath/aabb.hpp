@@ -1,8 +1,10 @@
  #pragma once
 
-#include "Vec2.hpp"
 #include <cmath>
 #include <initializer_list>
+
+#include "vec2.hpp"
+#include "mat3.hpp"
 
 namespace emath {
 
@@ -98,7 +100,8 @@ public:
 		return from_min_max(min()-rv, max()+rv);
 	}
 
-	static bool intersects(const AABB_T& a, const AABB_T& b) {
+	static bool intersects(const AABB_T& a, const AABB_T& b)
+	{
 		for (int d=0; d<2; ++d) {
 			if (a._max[d] <= b._min[d] || b._max[d] <= a._min[d]) {
 				return false;
@@ -124,11 +127,13 @@ public:
 	}
 
 	// ------------------------------------------------
-	friend AABB_T operator*(T s, const AABB_T& v) {
+	friend AABB_T operator*(T s, const AABB_T& v)
+	{
 		return AABB_T(s*v._min, s*v._max);
 	}
 
-	friend AABB_T operator*(const AABB_T& v, T s) {
+	friend AABB_T operator*(const AABB_T& v, T s)
+	{
 		return AABB_T(v._min*s, v._max*s);
 	}
 
@@ -198,6 +203,17 @@ inline AABB lerp(const AABB& a, const AABB& b, float t)
 		lerp(a.center(), b.center(), t),
 		lerp(a.size(),   b.size(),   t)
 	);
+}
+
+template<typename T>
+inline AABB_T<T> transform(const Mat3T<T>& out_from_in, const AABB_T<T>& aabb)
+{
+	return AABB_T<T>::from_points({
+		mul_pos(out_from_in, Vec2T<T>{aabb.min().x, aabb.min().y}),
+		mul_pos(out_from_in, Vec2T<T>{aabb.min().x, aabb.max().y}),
+		mul_pos(out_from_in, Vec2T<T>{aabb.max().x, aabb.min().y}),
+		mul_pos(out_from_in, Vec2T<T>{aabb.max().x, aabb.max().y}),
+	});
 }
 
 } // namespace emath

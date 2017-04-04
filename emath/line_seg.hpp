@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vec2.hpp"
+#include "vec2.hpp"
 #include "ray.hpp"
 
 namespace emath

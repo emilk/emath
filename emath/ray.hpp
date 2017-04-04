@@ -1,7 +1,7 @@
 //  Created by emilk on 2012-10-31.
 #pragma once
 
-#include "Vec2.hpp"
+#include "vec2.hpp"
 
 namespace emath {
 
