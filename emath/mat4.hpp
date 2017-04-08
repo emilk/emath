@@ -32,7 +32,7 @@ namespace emath
 		inline explicit Mat4T(const Mat4T<T2>& m) {
 			for (int j = 0; j < 4; ++j) {
 				for (int i = 0; i < 4; ++i) {
-					mat[i][j] = static_cast<T>( m[i][j] );
+					mat[i][j] = static_cast<T>(m[i][j]);
 				}
 			}
 		}
@@ -649,7 +649,7 @@ namespace emath
 	inline Vec2f mul_pos(const Mat4T<T>& m, const Vec2f& p)
 	{
 		auto v4 = mul(m, Vec4T<T>(Vec4f(p, 0, 1)));
-		return Vec2f( v4.xy / v4.w );
+		return Vec2f(v4.xy / v4.w);
 	}
 
 	template<typename T>
@@ -663,7 +663,7 @@ namespace emath
 	inline Vec3f mul_pos(const Mat4T<T>& m, const Vec3f& p)
 	{
 		auto v4 = mul(m, Vec4T<T>(Vec4f(p, 1)));
-		return Vec3f( v4.xyz / v4.w );
+		return Vec3f(v4.xyz / v4.w);
 	}
 
 	template<typename T>

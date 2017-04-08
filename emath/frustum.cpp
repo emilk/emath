@@ -111,7 +111,6 @@ bool Frustum::cull_box(const Vec3& c, const Vec3& e) const
 		if (out == 8) { return true; }
 	}
 
-
 	return false;
 
 	#else

@@ -74,7 +74,7 @@ public:
 	// Gaussian distribution with mean=0 and variance=1
 	real random_normal()
 	{
-		return _normal( _rand );
+		return _normal(_rand);
 	}
 
 	inline Vec2 random_normal_vec2()

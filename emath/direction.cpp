@@ -14,7 +14,7 @@ namespace emath
 	{
 		Vec3 d = dir();
 
-		_up = normalized( up );
+		_up = normalized(up);
 
 		// Make sure we look the same direction in the new coordinate system:
 		set_dir(d);

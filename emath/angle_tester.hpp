@@ -16,7 +16,7 @@ class AngleTester
 {
 public:
 	using MyFloat = typename VecType::element_type;
-	static_assert( std::is_floating_point<MyFloat>::value, "Angle tester only works with floats" );
+	static_assert(std::is_floating_point<MyFloat>::value, "Angle tester only works with floats");
 
 	AngleTester() = default;
 

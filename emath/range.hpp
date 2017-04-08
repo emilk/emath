@@ -136,7 +136,6 @@ namespace emath
 	using RangeD = RangeFloat<double>;
 } // namespace emath
 
-
 // namespace std {
 
 // template<typename T>

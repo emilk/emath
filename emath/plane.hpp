@@ -38,15 +38,12 @@ namespace emath
 		// NOT TESTED in 'Voxels'
 		static Vec3 plane_intersection(const Plane& a, const Plane& b, const Plane& c);
 
-
 		const Vec3& normal() const { return _normal; }
 		real distance() const { return _dist; }
-
 
 #if 0
 		void transform(const Mat4& transform);
 #endif
-
 
 		// Only works for normalized planes.
 		real distance(const Vec3& p) const
@@ -62,9 +59,7 @@ namespace emath
 		real _dist;
 	};
 
-
 	// ---------------------------------------
-
 
 	struct plane_2d
 	{
