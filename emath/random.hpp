@@ -33,12 +33,12 @@ public:
 		return random_float() * max;
 	}
 
-	inline Vec2 random_uniform(const Vec2& max)
+	inline Vec2f random_uniform(const Vec2f& max)
 	{
 		return { random_float()*max.x, random_float()*max.y };
 	}
 
-	inline Vec3 random_uniform(const Vec3& max)
+	inline Vec3f random_uniform(const Vec3f& max)
 	{
 		return { random_float()*max.x, random_float()*max.y, random_float()*max.z };
 	}
@@ -77,24 +77,27 @@ public:
 		return _normal(_rand);
 	}
 
-	inline Vec2 random_normal_vec2()
+	/// Returns random point with norm() <= 1.
+	Vec2f random_unit_circle();
+
+	inline Vec2f random_normal_vec2()
 	{
 		return { random_normal(), random_normal() };
 	}
 
-	inline Vec3 random_normal_vec3()
+	inline Vec3f random_normal_vec3()
 	{
 		return { random_normal(), random_normal(), random_normal() };
 	}
 
-	inline Vec2 random_dir_2d()
+	inline Vec2f random_dir_2d()
 	{
 		return vec2_angled(random_angle());
 	}
 
-	inline Vec3 random_dir_3d()
+	inline Vec3f random_dir_3d()
 	{
-		Vec3 ret;
+		Vec3f ret;
 		do ret = random_normal_vec3(); while (length_sq(ret) == 0);
 		return normalized(ret);
 	}

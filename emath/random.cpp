@@ -20,6 +20,14 @@ Random::Random(const char* seed) : Random((unsigned)std::hash<const char*>()(see
 {
 }
 
+Vec2f Random::random_unit_circle()
+{
+	for (;;) {
+		Vec2f v = { random_interval(-1.0f, +1.0f), random_interval(-1.0f, +1.0f) };
+		if (length_sq(v) <= 1.0f) { return v; }
+	}
+}
+
 inline float rgb_intensity(const Vec3f& v)
 {
 	return 0.3f*v.r + 0.59f*v.g + 0.11f*v.b;
