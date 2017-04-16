@@ -48,9 +48,9 @@ namespace emath
 		const auto MaxPitch = 0.999f * 0.25f * TAUf;
 		p = clamp(p, -MaxPitch, +MaxPitch);
 
-		_dir = normalized( project_onto(dir(), up()) );  // Remove pitch
+		_dir = normalized(project_onto(dir(), up()));      // Remove pitch
 		_dir = rotate_dir_around_axis(dir(), right(), p);  // Tilt up/down
-		normalize(_dir);                               // Prevent drift
+		normalize(_dir);                                   // Prevent drift
 	}
 
 	void Direction::look(Vec2 delta)

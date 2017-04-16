@@ -1,7 +1,8 @@
 #pragma once
 
-#include <type_traits>
 #include <cmath>
+#include <type_traits>
+
 #include "math.hpp"
 
 namespace emath {
@@ -20,7 +21,7 @@ public:
 
 	AngleTester() = default;
 
-	// The cutoff angle in radians
+	/// The cutoff angle in radians
 	AngleTester(MyFloat angle) : _angle(angle)
 	{
 		_cosSq = sqr(std::cos(angle));
@@ -28,22 +29,23 @@ public:
 
 	MyFloat angle() const { return _angle; }
 
-	// Returns true if the absolute angle between v0 and v1 exceeds test angle.
-	bool is_exceededBy(const VecType& v0, const VecType& v1) const
+	/// Returns true if the absolute angle between v0 and v1 exceeds test angle.
+	bool is_exceeded_by(const VecType& v0, const VecType& v1) const
 	{
 		MyFloat cos = dot(v0,v1);
 		return sign(cos)*sqr(cos) < _cosSq * length_sq(v0) * length_sq(v1);
 	}
 
-	// Returns true if abs(v.angle()) exceeds test angle.
-	// Save as is_exceededBy(v, Vec2(1,0))
-	bool is_exceededBy(const VecType& v) const
+	/// Returns true if abs(v.angle()) exceeds test angle.
+	/// Same as is_exceeded_by(v, Vec2(1,0))
+	bool is_exceeded_by(const VecType& v) const
 	{
 		MyFloat cos = v.x;
 		return sign(cos)*sqr(cos) < _cosSq * length_sq(v);
 	}
 
-	friend bool operator==(const AngleTester& a, const AngleTester& b) {
+	friend bool operator==(const AngleTester& a, const AngleTester& b)
+	{
 		return a.angle() == b.angle();
 	}
 
