@@ -296,7 +296,7 @@ namespace emath {
 		return (2*t3 - 3*t2 + 1)*p0 + (t3 - 2*t2 + t)*m0 + (-2*t3 + 3*t2)*p1 + (t3 - t2)*m1;
 	}
 
-	// normalized sinc function
+	/// normalized sinc function
 	template<typename F>
 	inline F sinc(F x)
 	{
@@ -305,19 +305,19 @@ namespace emath {
 		return std::sin(PI<F> * x)/(PI<F> * x);
 	}
 
-	// t is [0,1] between p1 and p2
+	/// t is [0,1] between p1 and p2
 	template<typename F, typename T>
 	inline T catmull_rom(F t, T p0, T p1, T p2, T p3)
 	{
-		STATIC_ASSERT_FLOATING_POINT(F);
 		return 0.5f * (
-							p0 * t*((2-t)*t-1)   +
-							p1 * (t*t*(3*t-5)+2) +
-							p2 * t*((4-3*t)*t+1) +
-							p3 * (t-1)*t*t
-							);
+			p0 * t*((2-t)*t-1)   +
+			p1 * (t*t*(3*t-5)+2) +
+			p2 * t*((4-3*t)*t+1) +
+			p3 * (t-1)*t*t
+		);
 	}
 
+	/// t is [0,1] between points[1] and points[2]
 	template<typename F, typename T>
 	inline T catmull_rom(F t, T points[4])
 	{
@@ -326,16 +326,16 @@ namespace emath {
 
 	// ------------------------------------------------
 
-	// Returns the next float greater than 'arg'.
-	// if NAN, will return NAN.
-	// if INF, will return INF.
-	// if -INF, will return std::numeric_limit<float>::min()
-	// Will allow denormal numbers.
+	/// Returns the next float greater than 'arg'.
+	/// if NAN, will return NAN.
+	/// if INF, will return INF.
+	/// if -INF, will return std::numeric_limit<float>::min()
+	/// Will allow denormal numbers.
 	inline float next_float(float arg);
 
 	// ------------------------------------------------
 
-	// Easily spotted value at debug time
+	/// Easily spotted value at debug time
 	template<typename T>
 	inline const T get_debug_value() { return T(); }
 
