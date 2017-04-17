@@ -6,7 +6,6 @@
 #include "circle.hpp"
 #include "fwd.hpp"
 #include "line_seg.hpp"
-#include "util.hpp"
 
 namespace emath {
 
