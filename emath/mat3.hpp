@@ -54,6 +54,7 @@ namespace emath
 		inline static Mat3T rotate_z(T rad);
 		inline static Mat3T scale(T x, T y);
 		inline static Mat3T scale(const emath::Vec2& v) { return scale((T)v.x, (T)v.y); }
+		inline static Mat3T scale(T s) { return scale(s, s); }
 
 		inline static Mat3T zero();
 		inline static Mat3T identity();
