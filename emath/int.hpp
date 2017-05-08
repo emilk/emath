@@ -46,4 +46,9 @@ constexpr unsigned HUGE_PRIME_0 = 0x8da6b343;
 constexpr unsigned HUGE_PRIME_1 = 0xd8163841;
 constexpr unsigned HUGE_PRIME_2 = 0xcb1ab31f;
 
+inline int positive_modulo(int i, int n)
+{
+	return (i % n + n) % n;
+}
+
 } // namespace emath
