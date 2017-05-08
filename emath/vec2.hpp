@@ -4,7 +4,7 @@
 #include <cassert>
 
 #include "fwd.hpp"
-#include "int.hpp" // is_power_of_two, HUGE_PRIME_0
+#include "int.hpp" // is_power_of_two
 #include "math.hpp"
 
 #if __APPLE__
@@ -443,16 +443,6 @@ inline Vec2 remap_clamp(Vec2 v, Vec2 in_min, Vec2 in_max, Vec2 out_min, Vec2 out
 //	}
 //#endif
 } // namespace emath
-
-//namespace std
-//{
-//	template<typename T> struct hash<emath::Vec2T<T>> {
-//		size_t operator()(const emath::Vec2T<T>& val) const
-//	{
-//			return std::hash<T>()(val.x) + std::hash<T>()(val.y) * emath::HUGE_PRIME_0;
-//		}
-//	};
-//}
 
 namespace std {
 inline bool isfinite(emath::Vec2 v)
