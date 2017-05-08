@@ -52,9 +52,9 @@ namespace emath
 		inline static Mat3T rotate_x(T rad);
 		inline static Mat3T rotate_y(T rad);
 		inline static Mat3T rotate_z(T rad);
-		inline static Mat3T scale(T x, T y);
-		inline static Mat3T scale(const emath::Vec2& v) { return scale((T)v.x, (T)v.y); }
-		inline static Mat3T scale(T s) { return scale(s, s); }
+		inline static Mat3T scale_2d(T x, T y);
+		inline static Mat3T scale_2d(const emath::Vec2& v) { return scale_2d((T)v.x, (T)v.y); }
+		inline static Mat3T scale_2d(T s) { return scale_2d(s, s); }
 
 		inline static Mat3T zero();
 		inline static Mat3T identity();
@@ -127,6 +127,13 @@ namespace emath
 			- m.M(0,1) * m.M(1,0) * m.M(2,2)
 			+ m.M(0,2) * m.M(1,0) * m.M(2,1)
 			- m.M(0,2) * m.M(1,1) * m.M(2,0);
+	}
+
+	/// The signed uniform scaling of the matrix.
+	template<typename T>
+	T scaling(const Mat3T<T>& m)
+	{
+		return std::cbrt(emath::determinant(m));
 	}
 
 	template<typename T>
@@ -291,27 +298,30 @@ namespace emath
 	}
 
 	template<typename T>
-	inline Mat3T<T> Mat3T<T>::scale(T x, T y)
+	inline Mat3T<T> Mat3T<T>::scale_2d(T x, T y)
 	{
-		return Mat3T(x,0,0,
-						0,y,0,
-						0,0,1);
+		return Mat3T(
+			x,0,0,
+			0,y,0,
+			0,0,1);
 	}
 
 	template<typename T>
 	inline Mat3T<T> Mat3T<T>::zero()
 	{
-		return Mat3T(0,0,0,
-						0,0,0,
-						0,0,0);
+		return Mat3T(
+			0,0,0,
+			0,0,0,
+			0,0,0);
 	}
 
 	template<typename T>
 	inline Mat3T<T> Mat3T<T>::identity()
 	{
-		return Mat3T(1,0,0,
-						0,1,0,
-						0,0,1);
+		return Mat3T(
+			1,0,0,
+			0,1,0,
+			0,0,1);
 	}
 
 	// ------------------------------------------------
