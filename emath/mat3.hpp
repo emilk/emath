@@ -337,6 +337,15 @@ namespace emath
 	}
 
 	template<typename T>
+	inline Vec2T<T> mul_2x2(const Mat3T<T>& m, const Vec2T<T>& p)
+	{
+		return {
+			m.mat[0][0]*p[0] + m.mat[1][0]*p[1],
+			m.mat[0][1]*p[0] + m.mat[1][1]*p[1],
+		};
+	}
+
+	template<typename T>
 	inline Vec2T<T> mul_pos(const Mat3T<T>& m, const Vec2T<T>& p)
 	{
 		Vec3T<T> v3 = mul(m, Vec3T<T>(p.x, p.y, 1));

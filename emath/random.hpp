@@ -18,7 +18,7 @@ public:
 	// ------------------------------------------------
 
 	Random() : _rand(s_seed++) {}
-	explicit Random(unsigned seed) : _rand(seed) {}
+	explicit Random(size_t seed) : _rand(seed) {}
 	explicit Random(const char* seed); // Will hash 'seed'
 
 	/// [0,1)

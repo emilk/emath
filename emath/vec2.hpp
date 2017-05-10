@@ -209,13 +209,11 @@ constexpr bool operator!=(const Vec2T<T>& a, const Vec2T<T>& b)
 	return a.x!=b.x || a.y!=b.y;
 }
 
-/*
 template<typename T>
 constexpr bool operator<(const Vec2T<T>& a, const Vec2T<T>& b)
 {
 	return (a.x!=b.x ? a.x<b.x : a.y<b.y);
 }
- */
 
 // ------------------------------------------------
 
