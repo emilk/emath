@@ -339,7 +339,7 @@ namespace emath
 	template<typename T>
 	inline Vec2T<T> mul_pos(const Mat3T<T>& m, const Vec2T<T>& p)
 	{
-		Vec3 v3 = mul(m, Vec3(p,1));
+		Vec3T<T> v3 = mul(m, Vec3T<T>(p.x, p.y, 1));
 		return v3.xy / v3.z;
 	}
 
@@ -385,6 +385,7 @@ namespace emath
 	// ------------------------------------------------
 
 	using Mat3  = Mat3T<real>;
+	using Mat3i = Mat3T<int>;
 	using Mat3f = Mat3T<float>;
 	using Mat3d = Mat3T<double>;
 }

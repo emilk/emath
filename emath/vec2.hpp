@@ -24,9 +24,7 @@ namespace emath {
 // ------------------------------------------------
 // Static constructors:
 
-/* Given a unit-vector, if the angle is VERY close to being a factor of 45∞
- the the normal will be modified to be perfect.
- */
+/// Given a unit-vector, if the angle is VERY close to being a factor of 45° the the normal will be modified to be perfect.
 template<typename T>
 const Vec2T<T> idealized_normal(Vec2T<T> vec)
 {
@@ -49,9 +47,10 @@ const Vec2T<T> idealized_normal(Vec2T<T> vec)
 
 // Returns the unit-vector of a certain angle (angle=0, vector=[1,0], angle=Pi/2, vector=[0,1])
 // The invert of Vec2T::angle()
-inline const Vec2 vec2_angled(real a)
+template<typename T>
+inline const Vec2T<T> vec2_angled(T a)
 {
-	auto ret = Vec2(std::cos(a), std::sin(a));
+	auto ret = Vec2T<T>(std::cos(a), std::sin(a));
 	ret = idealized_normal(ret);
 	return ret;
 }
