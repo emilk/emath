@@ -2,8 +2,9 @@
 
 #include <cmath>
 #include <initializer_list>
+#include <vector>
 
-#include "vec2.hpp"
+#include "fwd.hpp"
 #include "mat3.hpp"
 
 namespace emath {
@@ -23,6 +24,7 @@ public:
 	// Static ctors:
 
 	static const AABB_T from_points(std::initializer_list<V> list);
+	static const AABB_T from_points(const std::vector<V>& list);
 	static const AABB_T from_min_max(const V& min, const V& max);
 	static const AABB_T from_min_size(const V& min, const V& size);
 	static const AABB_T from_center_size(const V& center, const V& size);
@@ -36,7 +38,7 @@ public:
 	const V& max()    const { return _max; }
 	const V  center() const { return average(_min, _max); }
 	const V  size()   const { return _max-_min; }
-	element_type area()   const { return size().area();   }
+	element_type area()   const { return width() * height(); }
 	element_type width()  const { return size().x; }
 	element_type height() const { return size().y; }
 
@@ -45,6 +47,13 @@ public:
 	const V  left_top()     const { return V(_min.x, _max.y); }
 	const V  right_bottom() const { return V(_max.x, _min.y); }
 	const V  right_top()    const { return V(_max.x, _max.y); }
+
+	// Named in x-y order.
+	const V left_min_y()  const { return V(_min.x, _min.y); }
+	const V left_max_y()  const { return V(_min.x, _max.y); }
+	const V right_min_y() const { return V(_max.x, _min.y); }
+	const V right_max_y() const { return V(_max.x, _max.y); }
+
 
 	// ------------------------------------------------
 	// Tests
@@ -155,9 +164,17 @@ using AABBi = AABB_T<int>;
 template<typename T>
 inline const AABB_T<T> AABB_T<T>::from_points(std::initializer_list<V> list)
 {
-	assert(list.size()>0);
-	auto data = list.begin();
-	AABB_T ret = {data[0], data[0]};
+	AABB_T ret = AABB_T::nothing();
+	for (auto& v : list) {
+		ret.include(v);
+	}
+	return ret;
+}
+
+template<typename T>
+inline const AABB_T<T> AABB_T<T>::from_points(const std::vector<V>& list)
+{
+	AABB_T ret = AABB_T::nothing();
 	for (auto& v : list) {
 		ret.include(v);
 	}

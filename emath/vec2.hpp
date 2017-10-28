@@ -362,6 +362,18 @@ inline Vec2T<T> abs(Vec2T<T> v)
 }
 
 template<typename T>
+T min(const Vec2T<T>& v)
+{
+	return emath::min(v.x, v.y);
+}
+
+template<typename T>
+T max(const Vec2T<T>& v)
+{
+	return emath::max(v.x, v.y);
+}
+
+template<typename T>
 Vec2T<T> min(const Vec2T<T>& a, const Vec2T<T>& b)
 {
 	return {emath::min(a.x, b.x), emath::min(a.y, b.y)};

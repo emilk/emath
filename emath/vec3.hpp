@@ -1,5 +1,7 @@
 #pragma once
 
+#include <type_traits>
+
 #include "fwd.hpp"
 #include "math.hpp" // Floor etc
 

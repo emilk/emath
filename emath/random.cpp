@@ -2,7 +2,7 @@
 
 #include "random.hpp"
 
-unsigned random_seed()
+static unsigned random_seed()
 {
 #if DEBUG
 	return 9;
