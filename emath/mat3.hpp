@@ -1,9 +1,11 @@
 #pragma once
 
+#include <cmath>
+
 #include <loguru.hpp>
 
-#include "vec2.hpp"
-#include "vec3.hpp"
+#include "fwd.hpp"
+#include "fwd.hpp"
 
 namespace emath
 {

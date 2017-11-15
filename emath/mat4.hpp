@@ -3,9 +3,8 @@
 
 #include <algorithm>
 
-#include "fwd.hpp"
 #include "mat3.hpp"
-#include "vec3.hpp"
+#include "vec2.hpp"
 
 namespace emath
 {

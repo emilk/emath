@@ -6,6 +6,7 @@
  Adapted for Voxel Shooter 2013
  */
 
+#include "vec3.hpp"
 #include "mat4.hpp"
 
 namespace emath

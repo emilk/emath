@@ -4,8 +4,8 @@
 #include <initializer_list>
 #include <vector>
 
-#include "fwd.hpp"
 #include "mat3.hpp"
+#include "vec2.hpp"
 
 namespace emath {
 
