@@ -19,6 +19,7 @@ public:
 
 	// ------------------------------------------------
 
+	bool empty() const { return _data.empty(); }
 	int width()  const { return _width;  } ///< The number of columns
 	int height() const { return _height; } ///< The number of rows
 	int total()  const { return _width * _height; }
@@ -28,31 +29,85 @@ public:
 
 	// ------------------------------------------------
 
+	const T* begin() const { return data();           }
+	T*       begin()       { return data();           }
+	const T* end()   const { return data() + total(); }
+	T*       end()         { return data() + total(); }
+
+	// ------------------------------------------------
+
 	T* row_ptr(int y)
 	{
-		CHECK_LT_F(y, _height);
+		DCHECK_F(0 <= y && y < _height, "%d not in range [0, %d)", y, _height);
 		return data() + _width * y;
 	}
 
 	const T* row_ptr(int y) const
 	{
-		CHECK_LT_F(y, _height);
+		DCHECK_F(0 <= y && y < _height, "%d not in range [0, %d)", y, _height);
 		return data() + _width * y;
 	}
 
-	T* pointer_to(int x, int y) const
+	T* pointer_to(int x, int y)
 	{
-		CHECK_F(x < _width && y < _height);
-		return data() + _width*y +   x;
+		DCHECK_F(0 <= x && x < _width, "%d not in range [0, %d)", x, _width);
+		DCHECK_F(0 <= y && y < _height, "%d not in range [0, %d)", y, _height);
+		return data() + _width * y +   x;
 	}
 
 	/// (col, row)
-	T& operator()(int x, int y) const { return *pointer_to(x,y); }
+	T& operator()(int x, int y) { return *pointer_to(x,y); }
+
+	T operator()(int x, int y) const
+	{
+		DCHECK_F(0 <= x && x < _width, "%d not in range [0, %d)", x, _width);
+		DCHECK_F(0 <= y && y < _height, "%d not in range [0, %d)", y, _height);
+		return _data[_width * y + x];
+	}
+
+	// ------------------------------------------------
+
+	std::vector<float> column(int x) const
+	{
+		DCHECK_F(0 <= x && x < _width, "%d not in range [0, %d)", x, _width);
+		std::vector<float> column;
+		column.reserve(_height);
+		for (int y = 0; y < _height; ++y) {
+			column.push_back(_data[_width * y +   x]);
+		}
+		return column;
+	}
 
 private:
 	std::vector<T> _data;
 	int            _width;
 	int            _height;
 };
+
+// ----------------------------------------------------------------------------
+
+template<typename T>
+Matrix<T> operator*(const Matrix<T>& m, const T factor)
+{
+	Matrix<T> result(m.width(), m.height());
+	for (int y = 0; y < m.height(); ++y) {
+		for (int x = 0; x < m.width(); ++x) {
+			result(x, y) = m(x, y) * factor;
+		}
+	}
+	return result;
+}
+
+template<typename T>
+Matrix<T> operator/(const Matrix<T>& m, const T factor)
+{
+	return m * (1 / factor);
+}
+
+// ----------------------------------------------------------------------------
+
+using Matrixi = Matrix<int>;
+using Matrixf = Matrix<float>;
+using Matrixd = Matrix<double>;
 
 } // namespace emath

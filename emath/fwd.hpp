@@ -278,4 +278,12 @@ class AABB_T;
 using AABBf = AABB_T<float>;
 using AABBd = AABB_T<double>;
 
+// ----------------------------------------------------------------------------
+
+template<typename T>
+class Matrix;
+using Matrixi = Matrix<int>;
+using Matrixf = Matrix<float>;
+using Matrixd = Matrix<double>;
+
 } // namespace emath
