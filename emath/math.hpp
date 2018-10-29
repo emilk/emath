@@ -6,8 +6,6 @@
 #include <cstdint> // uint8_t etc
 #include <limits>
 
-#include "real.hpp"
-
 namespace emath {
 	#define IS_FLOATING_POINT(Type) (std::is_floating_point<Type>::value)
 	#define STATIC_ASSERT_FLOATING_POINT(Type) static_assert(IS_FLOATING_POINT(Type), "Must be a float")
@@ -225,7 +223,7 @@ namespace emath {
 		return a;
 	}
 
-	inline real lerp_angle(real a0, real a1, float t)
+	inline float lerp_angle(float a0, float a1, float t)
 	{
 		return a0 + t * wrap_angle(a1-a0);
 	}
@@ -236,7 +234,7 @@ namespace emath {
 		if (b<a) { std::swap(a,b); }
 	}
 
-	inline constexpr bool is_zero(real v, real eps = EPSf)
+	inline constexpr bool is_zero(float v, float eps = EPSf)
 	{
 		return abs(v) <= eps;
 	}

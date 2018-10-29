@@ -23,7 +23,7 @@ public:
 
 	static Frustum from_matrix(const Mat4& mvp);
 
-	bool contains_point(const Vec3& p) const;
+	bool contains_point(const Vec3f& p) const;
 
 	enum class PlaneIntersectResult { Infront, Behind, Intersect };
 
@@ -31,11 +31,11 @@ public:
 	/// Behind if it's completely behind, and Intersect if they intersect.
 	PlaneIntersectResult plane_intersection(const Plane& p) const;
 
-	IntersectResult test_sphere(const Vec3& c, float r) const;
+	IntersectResult test_sphere(const Vec3f& c, float r) const;
 	//IntersectResult test(const BoundingSphere& b);
 
 	/// return true if we can cull it.
-	bool cull_box(const Vec3& center, const Vec3& extent) const;
+	bool cull_box(const Vec3f& center, const Vec3f& extent) const;
 
 	friend bool intersects(const Frustum& lhs, const Frustum& rhs);
 
@@ -63,7 +63,7 @@ private:
 	/* The planes are pointing outwards. That means that things
 	 in front of them (p.dist(x) > 0) are outside the frustum. */
 	Plane _planes[NSides];
-	Vec3  _points[NPoints];
+	Vec3f  _points[NPoints];
 };
 
 } // namespace emath

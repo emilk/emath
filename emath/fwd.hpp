@@ -3,8 +3,6 @@
 #include <cstdint>
 #include <cstddef>
 
-#include "real.hpp"
-
 namespace emath {
 
 class Random;
@@ -40,7 +38,7 @@ private:
 
 /*
  Typeless, unitless, dimensionless zero.
- Usage:: Vec2 v = Zero; assert(v == Zero);
+ Usage:: Vec2f v = Zero; assert(v == Zero);
  */
 extern const zero_tag Zero;
 
@@ -108,7 +106,6 @@ public:
 	T& operator[](unsigned i);
 };
 
-using Vec2    = Vec2T<real>;
 using Vec2f   = Vec2T<float>;
 using Vec2d   = Vec2T<double>;
 using Vec2i   = Vec2T<int>;
@@ -148,7 +145,7 @@ public:
 	Vec3T() = default; // Fast - no initialization!
 	Vec3T(zero_tag) : x(0), y(0), z(0) { }
 	explicit Vec3T(T v) : x(v), y(v), z(v) { }
-	Vec3T(const Vec2& v, T z) : x(v.x), y(v.y), z(z) { }
+	Vec3T(const Vec2f& v, T z) : x(v.x), y(v.y), z(z) { }
 	Vec3T(T x, T y, T z) : x(x), y(y), z(z) { }
 
 	template<typename OtherTag>
@@ -178,7 +175,6 @@ public:
 	T& operator[](unsigned i)       { return _v[i]; }
 };
 
-using Vec3    = Vec3T<real>;
 using Vec3f   = Vec3T<float>;
 using Vec3d   = Vec3T<double>;
 using Vec3i   = Vec3T<int>;
@@ -187,11 +183,11 @@ using Vec3u16 = Vec3T<uint16_t>;
 using Vec3u8  = Vec3T<uint8_t>; // e.g. RGB
 using Vec3s8  = Vec3T<int8_t>;  // e.g. normal
 
-//	using Vec3List = std::vector<Vec3>;
+//	using Vec3List = std::vector<Vec3f>;
 
-static_assert(sizeof(Vec3u8)   == 3*sizeof(byte),      "Pack");
-static_assert(sizeof(Vec3u16)  == 3*sizeof(uint16_t),  "Pack");
-static_assert(sizeof(Vec3)     == 3*sizeof(real),      "Pack");
+static_assert(sizeof(Vec3u8)   == 3 * sizeof(byte),      "Pack");
+static_assert(sizeof(Vec3u16)  == 3 * sizeof(uint16_t),  "Pack");
+static_assert(sizeof(Vec3f)    == 3 * sizeof(float),     "Pack");
 
 // --------------------------------------------------
 
@@ -247,14 +243,13 @@ public:
 	const T* data() const { return _v; }
 };
 
-using Vec4   = Vec4T<real>;
 using Vec4f  = Vec4T<float>;
 using Vec4d  = Vec4T<double>;
 using Vec4i  = Vec4T<int>;
 using Vec4u8 = Vec4T<byte>;
 
-static_assert(sizeof(Vec4)   == 4*sizeof(real), "Pack");
-static_assert(sizeof(Vec4u8) == 4*sizeof(byte), "Pack");
+static_assert(sizeof(Vec4f)  == 4 * sizeof(float), "Pack");
+static_assert(sizeof(Vec4u8) == 4 * sizeof(byte), "Pack");
 
 // ----------------------------------------------------------------------------
 

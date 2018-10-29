@@ -14,7 +14,7 @@ Frustum Frustum::from_matrix(const Mat4& mvp)
 	return Frustum(mvp);
 }
 
-bool Frustum::contains_point(const Vec3& p) const
+bool Frustum::contains_point(const Vec3f& p) const
 {
 	for (size_t i=0 ; i<NSides ; ++i) {
 		if (_planes[i].distance(p) > 0) {
@@ -37,12 +37,12 @@ Frustum::PlaneIntersectResult Frustum::plane_intersection(const Plane& p) const
 	return sgn > 0 ? PlaneIntersectResult::Infront : sgn == 0 ? PlaneIntersectResult::Intersect : PlaneIntersectResult::Behind;
 }
 
-IntersectResult Frustum::test_sphere(const Vec3& c, float r) const
+IntersectResult Frustum::test_sphere(const Vec3f& c, float r) const
 {
 	bool intersects = false;
 
 	for (size_t i=0; i<NSides; ++i) {
-		real distance = _planes[i].distance(c);
+		float distance = _planes[i].distance(c);
 
 		if (distance > r) {
 			return IntersectResult::Outside;
@@ -60,7 +60,7 @@ IntersectResult Frustum::test_sphere(const Vec3& c, float r) const
 	}
 }
 
-bool Frustum::cull_box(const Vec3& c, const Vec3& e) const
+bool Frustum::cull_box(const Vec3f& c, const Vec3f& e) const
 {
 	const auto mins = c - e;
 	const auto maxs = c + e;
@@ -69,7 +69,7 @@ bool Frustum::cull_box(const Vec3& c, const Vec3& e) const
 	// Test all planes against closest corner
 
 	for (auto& p : _planes) {
-		Vec3 closest = {
+		Vec3f closest = {
 			p.normal().x > 0 ? mins.x : maxs.x,
 			p.normal().y > 0 ? mins.y : maxs.y,
 			p.normal().z > 0 ? mins.z : maxs.z
@@ -120,14 +120,14 @@ bool Frustum::cull_box(const Vec3& c, const Vec3& e) const
 	// check box outside/inside of frustum
 	for (auto& plane : _planes) {
 		int out = 0;
-		out += plane.distance(Vec3(mins.x, mins.y, mins.z)) > 0.0f;
-		out += plane.distance(Vec3(maxs.x, mins.y, mins.z)) > 0.0f;
-		out += plane.distance(Vec3(mins.x, maxs.y, mins.z)) > 0.0f;
-		out += plane.distance(Vec3(maxs.x, maxs.y, mins.z)) > 0.0f;
-		out += plane.distance(Vec3(mins.x, mins.y, maxs.z)) > 0.0f;
-		out += plane.distance(Vec3(maxs.x, mins.y, maxs.z)) > 0.0f;
-		out += plane.distance(Vec3(mins.x, maxs.y, maxs.z)) > 0.0f;
-		out += plane.distance(Vec3(maxs.x, maxs.y, maxs.z)) > 0.0f;
+		out += plane.distance(Vec3f(mins.x, mins.y, mins.z)) > 0.0f;
+		out += plane.distance(Vec3f(maxs.x, mins.y, mins.z)) > 0.0f;
+		out += plane.distance(Vec3f(mins.x, maxs.y, mins.z)) > 0.0f;
+		out += plane.distance(Vec3f(maxs.x, maxs.y, mins.z)) > 0.0f;
+		out += plane.distance(Vec3f(mins.x, mins.y, maxs.z)) > 0.0f;
+		out += plane.distance(Vec3f(maxs.x, mins.y, maxs.z)) > 0.0f;
+		out += plane.distance(Vec3f(mins.x, maxs.y, maxs.z)) > 0.0f;
+		out += plane.distance(Vec3f(maxs.x, maxs.y, maxs.z)) > 0.0f;
 		if (out==8) { return true; }
 	}
 
@@ -168,8 +168,8 @@ bool Frustum::cull_box(const Vec3& c, const Vec3& e) const
 
 Frustum::Frustum(const Mat4& mat)
 {
-	//Vec4 rows[4] = { mat.row(0), mat.row(1), mat.row(2), mat.row(3) };
-	Vec4 rows[4] = { mat.col(0), mat.col(1), mat.col(2), mat.col(3) };
+	//Vec4f rows[4] = { mat.row(0), mat.row(1), mat.row(2), mat.row(3) };
+	Vec4f rows[4] = { mat.col(0), mat.col(1), mat.col(2), mat.col(3) };
 
 	_planes[Right]  = Plane(+rows[0] - rows[3]);
 	_planes[Left]   = Plane(-rows[0] - rows[3]);
@@ -190,15 +190,15 @@ Frustum::Frustum(const Mat4& mat)
 	_points[6] = Plane::plane_intersection(_planes[Front], _planes[Right], _planes[Bottom]);
 	_points[7] = Plane::plane_intersection(_planes[Front], _planes[Right], _planes[Top]   );
 #else
-	_points[0] = Vec3(-1, -1, -1);
-	_points[1] = Vec3(-1, +1, -1);
-	_points[2] = Vec3(+1, -1, -1);
-	_points[3] = Vec3(+1, +1, -1);
+	_points[0] = Vec3f(-1, -1, -1);
+	_points[1] = Vec3f(-1, +1, -1);
+	_points[2] = Vec3f(+1, -1, -1);
+	_points[3] = Vec3f(+1, +1, -1);
 
-	_points[4] = Vec3(-1, -1, +1);
-	_points[5] = Vec3(-1, +1, +1);
-	_points[6] = Vec3(+1, -1, +1);
-	_points[7] = Vec3(+1, +1, +1);
+	_points[4] = Vec3f(-1, -1, +1);
+	_points[5] = Vec3f(-1, +1, +1);
+	_points[6] = Vec3f(+1, -1, +1);
+	_points[7] = Vec3f(+1, +1, +1);
 
 	Mat4 inv = inverted(mat);
 

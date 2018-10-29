@@ -7,23 +7,23 @@
 namespace emath {
 namespace intersect {
 
-bool box_outside_plane(const Plane& p, const Vec3& c, const Vec3& e)
+bool box_outside_plane(const Plane& p, const Vec3f& c, const Vec3f& e)
 {
 	// TODO: OPTIMIZE
-	if (p.distance(c - Vec3(+e.x, +e.y, +e.z)) <= 0) { return false; }
-	if (p.distance(c - Vec3(+e.x, +e.y, -e.z)) <= 0) { return false; }
-	if (p.distance(c - Vec3(+e.x, -e.y, +e.z)) <= 0) { return false; }
-	if (p.distance(c - Vec3(+e.x, -e.y, -e.z)) <= 0) { return false; }
-	if (p.distance(c - Vec3(-e.x, +e.y, +e.z)) <= 0) { return false; }
-	if (p.distance(c - Vec3(-e.x, +e.y, -e.z)) <= 0) { return false; }
-	if (p.distance(c - Vec3(-e.x, -e.y, +e.z)) <= 0) { return false; }
-	if (p.distance(c - Vec3(-e.x, -e.y, -e.z)) <= 0) { return false; }
+	if (p.distance(c - Vec3f(+e.x, +e.y, +e.z)) <= 0) { return false; }
+	if (p.distance(c - Vec3f(+e.x, +e.y, -e.z)) <= 0) { return false; }
+	if (p.distance(c - Vec3f(+e.x, -e.y, +e.z)) <= 0) { return false; }
+	if (p.distance(c - Vec3f(+e.x, -e.y, -e.z)) <= 0) { return false; }
+	if (p.distance(c - Vec3f(-e.x, +e.y, +e.z)) <= 0) { return false; }
+	if (p.distance(c - Vec3f(-e.x, +e.y, -e.z)) <= 0) { return false; }
+	if (p.distance(c - Vec3f(-e.x, -e.y, +e.z)) <= 0) { return false; }
+	if (p.distance(c - Vec3f(-e.x, -e.y, -e.z)) <= 0) { return false; }
 	return true;
 }
 
-bool circle_circle(const Circle& a, const Circle& b, Vec2 out_solutions[2])
+bool circle_circle(const Circle& a, const Circle& b, Vec2f out_solutions[2])
 {
-	const Vec2 delta = b.p - a.p;
+	const Vec2f delta = b.p - a.p;
 	const auto distance = length(delta);
 
 	if (distance > a.rad + b.rad)

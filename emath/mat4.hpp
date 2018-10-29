@@ -25,9 +25,9 @@ namespace emath
 		Mat4T() = default; // Fast
 
 		inline Mat4T(const Mat4T& m);
-		template<typename T2>
 
 		// Explcit cast:
+		template<typename T2>
 		inline explicit Mat4T(const Mat4T<T2>& m) {
 			for (int j = 0; j < 4; ++j) {
 				for (int i = 0; i < 4; ++i) {
@@ -35,8 +35,6 @@ namespace emath
 				}
 			}
 		}
-
-		inline explicit Mat4T(const Mat3& m);
 
 		inline explicit Mat4T(const T* d);
 		inline Mat4T(T m00, T m01, T m02, T m03,
@@ -50,14 +48,14 @@ namespace emath
 		inline       T* data() { return &mat[0][0]; }
 		inline const T* data() const { return &mat[0][0]; }
 
-		Vec4 row(uint num) const
+		Vec4f row(uint num) const
 		{
-			return Vec4(mat[num][0], mat[num][1], mat[num][2], mat[num][3]);
+			return Vec4f(mat[num][0], mat[num][1], mat[num][2], mat[num][3]);
 		}
 
-		Vec4 col(uint num) const
+		Vec4f col(uint num) const
 		{
-			return Vec4(mat[0][num], mat[1][num], mat[2][num], mat[3][num]);
+			return Vec4f(mat[0][num], mat[1][num], mat[2][num], mat[3][num]);
 		}
 
 		inline       T*  operator [] (int row);
@@ -72,14 +70,14 @@ namespace emath
 		inline       bool     operator == (const Mat4T& rhs) const;
 
 		// Get the translation part of the matrix
-		inline Vec3 translation() const;
-		inline void set_translation_2d(const Vec2& v);
-		inline void set_translation(const Vec3& v);
+		inline Vec3f translation() const;
+		inline void set_translation_2d(const Vec2f& v);
+		inline void set_translation(const Vec3f& v);
 
-		inline Vec3 scaling3() const;
+		inline Vec3f scaling3() const;
 		inline float scaling() const;
 
-		inline Vec2  dir_z() const;
+		inline Vec2f  dir_z() const;
 		inline float angle_z() const;
 
 		inline Mat3T<T> upper_left3x3() const
@@ -293,14 +291,14 @@ namespace emath
 
 	// Get the translation part of the matrix
 	template<typename T>
-	inline Vec3 Mat4T<T>::translation() const
+	inline Vec3f Mat4T<T>::translation() const
 	{
 		return { mat[3][0], mat[3][1], mat[3][2] };
 	}
 
 	// Get the Scaling part of the matrix
 	template<typename T>
-	inline Vec3 Mat4T<T>::scaling3() const
+	inline Vec3f Mat4T<T>::scaling3() const
 	{
 		// TODO: or is it row?
 		return {
@@ -318,7 +316,7 @@ namespace emath
 	}
 
 	template<typename T>
-	inline Vec2 Mat4T<T>::dir_z() const
+	inline Vec2f Mat4T<T>::dir_z() const
 	{
 		return row(0).xy;
 	}
@@ -330,14 +328,14 @@ namespace emath
 	}
 
 	template<typename T>
-	inline void Mat4T<T>::set_translation_2d(const Vec2& v)
+	inline void Mat4T<T>::set_translation_2d(const Vec2f& v)
 	{
 		mat[3][0] = (T)v.x;
 		mat[3][1] = (T)v.y;
 	}
 
 	template<typename T>
-	inline void Mat4T<T>::set_translation(const Vec3& v)
+	inline void Mat4T<T>::set_translation(const Vec3f& v)
 	{
 		mat[3][0] = (T)v.x;
 		mat[3][1] = (T)v.y;
@@ -637,7 +635,7 @@ namespace emath
 	template<typename T>
 	inline Vec4T<T> mul(const Mat4T<T>& m, const Vec4T<T>& p)
 	{
-		return Vec4(
+		return Vec4f(
 			m.mat[0][0]*p[0] + m.mat[1][0]*p[1] + m.mat[2][0]*p[2] + m.mat[3][0]*p[3],
 			m.mat[0][1]*p[0] + m.mat[1][1]*p[1] + m.mat[2][1]*p[2] + m.mat[3][1]*p[3],
 			m.mat[0][2]*p[0] + m.mat[1][2]*p[1] + m.mat[2][2]*p[2] + m.mat[3][2]*p[3],
@@ -686,7 +684,6 @@ namespace emath
 
 	// ------------------------------------------------
 
-	using Mat4  = Mat4T<real>;
 	using Mat4f = Mat4T<float>;
 	using Mat4d = Mat4T<double>;
 }

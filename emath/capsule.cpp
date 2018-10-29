@@ -13,20 +13,20 @@ namespace emath {
 /* Works in 2D and 3D */
 template<class Segment>
 void closest_lineseg_lineseg(
-	real& out_t0, real& out_t1, real& out_dist_sq, Segment s0, Segment s1)
+	float& out_t0, float& out_t1, float& out_dist_sq, Segment s0, Segment s1)
 {
 	// Three vectors:
 	auto d0 = s0.p1 - s0.p0;  // s0 dir
 	auto d1 = s1.p1 - s1.p0;  // s1 dir
 	auto w  = s0.p0 - s1.p0;  // translation between origins
-	real    a = dot(d0,d0);        // always >= 0
-	real    b = dot(d0,d1);
-	real    c = dot(d1,d1);        // always >= 0
-	real    d = dot(d0,w);
-	real    e = dot(d1,w);
-	real    D = a*c - b*b;       // always >= 0
-	real    N_0, D_0 = D;      // sc = N_0 / D_0, default D_0 = D >= 0
-	real    N_1, D_1 = D;      // tc = N_1 / D_1, default D_1 = D >= 0
+	float    a = dot(d0,d0);        // always >= 0
+	float    b = dot(d0,d1);
+	float    c = dot(d1,d1);        // always >= 0
+	float    d = dot(d0,w);
+	float    e = dot(d1,w);
+	float    D = a*c - b*b;       // always >= 0
+	float    N_0, D_0 = D;      // sc = N_0 / D_0, default D_0 = D >= 0
+	float    N_1, D_1 = D;      // tc = N_1 / D_1, default D_1 = D >= 0
 
 	// compute the line parameters of the two closest points
 	if (D < SMALL_NUM) { // the lines are almost parallel
@@ -83,14 +83,14 @@ void closest_lineseg_lineseg(
 // ------------------------------------------------
 
 // Is 'point' left of the line from p0 to p1?
-inline bool is_point_left_of(Vec2 p0, Vec2 p1, Vec2 point)
+inline bool is_point_left_of(Vec2f p0, Vec2f p1, Vec2f point)
 {
 	// There's room for optimization here
 	return dot(rot90CCW(p1-p0), point-p0) > 0;
 }
 
 // If possible, find t0 and t1 so that p0+t0*d0 = p1+t1*d1
-bool ray_ray(Vec2 p0, Vec2 d0, Vec2 p1, Vec2 d1, real& t0, real& t1)
+bool ray_ray(Vec2f p0, Vec2f d0, Vec2f p1, Vec2f d1, float& t0, float& t1)
 {
 	/*
 	 p0+t0*d0 = p1+t1*d1
@@ -126,15 +126,15 @@ bool ray_ray(Vec2 p0, Vec2 d0, Vec2 p1, Vec2 d1, real& t0, real& t1)
 
 	//if (emath::IsZero(det)) return false;
 
-	t0 = (real)((E*D - B*F) / det);
-	t1 = (real)((A*F - E*C) / det);
+	t0 = (float)((E*D - B*F) / det);
+	t1 = (float)((A*F - E*C) / det);
 
 	return std::isfinite(t0) && std::isfinite(t1);
 }
 
 #if 0
 // Find
-inline bool capsule_capsule(real& t0, real& t1, Vec2 p0, Vec2 d0, Vec2 p1, Vec2 d1, real r0, real r1)
+inline bool capsule_capsule(float& t0, float& t1, Vec2f p0, Vec2f d0, Vec2f p1, Vec2f d1, float r0, float r1)
 {
 	if (! ray_ray(p0,d0,p1,d1,t0,t1))
 		return false;
@@ -144,7 +144,7 @@ inline bool capsule_capsule(real& t0, real& t1, Vec2 p0, Vec2 d0, Vec2 p1, Vec2 
 }
 #endif
 
-inline bool line_segment_intersect_test(const Vec2& a0, const Vec2& a1, const Vec2& b0, const Vec2& b1)
+inline bool line_segment_intersect_test(const Vec2f& a0, const Vec2f& a1, const Vec2f& b0, const Vec2f& b1)
 {
 #if 1
 	// WARNING! VEC ON VEC WILL FAIL IN THIS PATH. CSG::Cuts depends on this! SO USE THIS PATH
@@ -161,11 +161,11 @@ inline bool line_segment_intersect_test(const Vec2& a0, const Vec2& a1, const Ve
 #else
 	// so, >= or >? >= will include hits if any vertices are the same. seems reasonable to me that.
 
-	 const Vec2& a = emath::Rot90CCW(a1-a0);
+	 const Vec2f& a = emath::Rot90CCW(a1-a0);
 	 if (Dot(a, b0-a0) * Dot(a, b1-a0) > 0) // >= 0
 	 return false; // Both the same sign, or at least one is zero
 
-	 const Vec2& b = emath::Rot90CCW(b1-b0);
+	 const Vec2f& b = emath::Rot90CCW(b1-b0);
 	 if (Dot(b, a0-b0) * Dot(b, a1-b0) > 0) // >= 0
 	 return false; // Both the same sign, or at least one is zero
 #endif
@@ -175,7 +175,7 @@ inline bool line_segment_intersect_test(const Vec2& a0, const Vec2& a1, const Ve
 	return true;
 }
 
-bool line_segment_intersect_test(const Vec2& a0, const Vec2& a1, const Vec2& b0, const Vec2& b1, real& t0, real& t1)
+bool line_segment_intersect_test(const Vec2f& a0, const Vec2f& a1, const Vec2f& b0, const Vec2f& b1, float& t0, float& t1)
 {
 	if (!line_segment_intersect_test(a0, a1, b0, b1)) {
 		return false;
@@ -193,9 +193,9 @@ bool line_segment_intersect_test(const Vec2& a0, const Vec2& a1, const Vec2& b0,
 	return true;
 }
 
-inline bool line_segment_intersect_test(const Vec2& a0, const Vec2& a1, const Vec2& b0, const Vec2& b1, Vec2* point)
+inline bool line_segment_intersect_test(const Vec2f& a0, const Vec2f& a1, const Vec2f& b0, const Vec2f& b1, Vec2f* point)
 {
-	real t0, t1;
+	float t0, t1;
 	if (line_segment_intersect_test(a0, a1, b0, b1, t0, t1)) {
 		if (point) {
 			*point = a0 + t0*(a1-a0);
@@ -205,9 +205,9 @@ inline bool line_segment_intersect_test(const Vec2& a0, const Vec2& a1, const Ve
 	return false;
 }
 
-inline bool line_segment_ray_intersect_test(const Vec2& a0, const Vec2& a1, const Vec2& pos, const Vec2& dir, real minT, real& t)
+inline bool line_segment_ray_intersect_test(const Vec2f& a0, const Vec2f& a1, const Vec2f& pos, const Vec2f& dir, float minT, float& t)
 {
-	real t0, t1;
+	float t0, t1;
 	if (ray_ray(a0, a1-a0, pos, dir, t0, t1)) {
 		if (0<=t0 && t0<1 && minT<=t1 && t1<t) {
 			t = t1;
@@ -222,14 +222,14 @@ inline bool line_segment_ray_intersect_test(const Vec2& a0, const Vec2& a1, cons
 // Returns the point on the line closest to the point v.
 // Returns the interpolation factor t between the points.
 // return t=0 on fail
-real closest_point_on_line(const Vec2& p0, const Vec2& p1, const Vec2& v)
+float closest_point_on_line(const Vec2f& p0, const Vec2f& p1, const Vec2f& v)
 {
 	// p = Lerp(p0, p1, t) = p0 + t * (p1-p0)
 	// Dot(v-p, p1-p0) = 0 // The closest point is orthogonal to the line
 	// Dot(v - p0 - t * (p1-p0), p1-p0) = 0
 	// t = Dot(v-p0, p1-p0) / (p1-p0).LengthSq()
 
-	Vec2 axis = p1 - p0;
+	Vec2f axis = p1 - p0;
 	auto t = dot(v-p0, axis) / length_sq(axis);
 
 	if (!std::isfinite(t)) {
@@ -242,7 +242,7 @@ real closest_point_on_line(const Vec2& p0, const Vec2& p1, const Vec2& v)
 // Returns the point on the line segment closest to the point v.
 // Also returns the interpolation factor t between the points. t is clamped to [0,1]
 // Returns p0 on fail
-Vec2 closest_point(const Vec2& p0, const Vec2& p1, const Vec2& v, real& t)
+Vec2f closest_point(const Vec2f& p0, const Vec2f& p1, const Vec2f& v, float& t)
 {
 	t = closest_point_on_line(p0,p1,v);
 
@@ -257,28 +257,28 @@ Vec2 closest_point(const Vec2& p0, const Vec2& p1, const Vec2& v, real& t)
 	}
 }
 
-Vec2 closest_point(Vec2 p0, Vec2 p1, const Vec2& v)
+Vec2f closest_point(Vec2f p0, Vec2f p1, const Vec2f& v)
 {
 	/*
-	 Vec2 axis = p1 - p0;
-	 real t = Dot(v-p0, axis) / axis.LengthSq();
+	 Vec2f axis = p1 - p0;
+	 float t = Dot(v-p0, axis) / axis.LengthSq();
 	 return p0 + t * axis;
 	 */
-	real t;
+	float t;
 	return closest_point(p0, p1, v, t);
 }
 
 // ------------------------------------------------
 // LineSeg
 
-Vec2 LineSeg::closest_point(const Vec2& pos) const
+Vec2f LineSeg::closest_point(const Vec2f& pos) const
 {
 	return emath::closest_point(p[0], p[1], pos);
 }
 
-real LineSeg::closestT(const Vec2& pos) const
+float LineSeg::closestT(const Vec2f& pos) const
 {
-	real t;
+	float t;
 	emath::closest_point(p0, p1, pos, t);
 	return t;
 }
@@ -314,7 +314,7 @@ bool Capsule::intersects(const Capsule& a, const Capsule& b)
 
 // ------------------------------------------------
 
-bool intersects(const Capsule& cap, const AABB& rect)
+bool intersects(const Capsule& cap, const AABBf& rect)
 {
 	// TODO: more exact please
 	return cap.line_seg.distance_sq_to(rect.center()) < sqr(cap.radius() + 0.5f * length( rect.size() ));

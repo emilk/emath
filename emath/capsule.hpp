@@ -14,22 +14,22 @@ struct Capsule
 	union {
 		struct {
 			union {
-				Vec2 p[2];
-				struct { Vec2 p0, p1; };
+				Vec2f p[2];
+				struct { Vec2f p0, p1; };
 				LineSeg line_seg;
 			};
-			real rad; // >= 0 please
+			float rad; // >= 0 please
 		};
 
 		struct {
-			Vec2 p0_again;
+			Vec2f p0_again;
 			Circle circ_1;
 		};
 	};
 
 	Capsule() = default; // Quick
 
-	Capsule(const Vec2& p0_, const Vec2& p1_, real rad_) {
+	Capsule(const Vec2f& p0_, const Vec2f& p1_, float rad_) {
 		p[0] = p0_;
 		p[1] = p1_;
 		rad = rad_;
@@ -60,17 +60,17 @@ struct Capsule
 		return circ_1;
 	}
 
-	emath::Vec2 dir() const
+	emath::Vec2f dir() const
 	{
 		return p1-p0;
 	}
 
-	emath::Vec2 dir_unit() const
+	emath::Vec2f dir_unit() const
 	{
 		return normalized(dir());
 	}
 
-	real radius() const { return rad; }
+	float radius() const { return rad; }
 
 	// ------------------------------------------------
 	// utils
@@ -87,8 +87,8 @@ struct Capsule
 
 // TODO
 //static_assert(MEMBER_OFFSET(Capsule, circ_1) == MEMBER_OFFSET(Capsule, p[1]), "Pack");
-static_assert(sizeof(Capsule) == sizeof(LineSeg) + sizeof(real), "Pack");
-static_assert(sizeof(Capsule) == sizeof(Vec2) + sizeof(Circle), "Pack");
+static_assert(sizeof(Capsule) == sizeof(LineSeg) + sizeof(float), "Pack");
+static_assert(sizeof(Capsule) == sizeof(Vec2f) + sizeof(Circle), "Pack");
 
 static_assert(std::is_pod<Capsule>::value,                "is_pod");
 static_assert(std::is_standard_layout<Capsule>::value,    "is_standard_layout");
@@ -97,13 +97,13 @@ static_assert(std::is_trivially_copyable<Capsule>::value, "is_trivially_copyable
 
 // ------------------------------------------------
 
-inline real distance(const Capsule& cap, const Vec2& p)
+inline float distance(const Capsule& cap, const Vec2f& p)
 {
-	Vec2 ls_closest = cap.line_seg.closest_point(p);
+	Vec2f ls_closest = cap.line_seg.closest_point(p);
 	return distance(ls_closest, p) - cap.rad;
 }
 
-inline real distance(const Capsule& cap, const Circle& circ)
+inline float distance(const Capsule& cap, const Circle& circ)
 {
 	return distance(cap, circ.p)-circ.rad;
 }
@@ -119,8 +119,8 @@ inline bool operator==(const Capsule& a, const Capsule& b)
 struct CapsuleBaked : public Capsule
 {
 public:
-	Vec2 A,N; // Base vectors for coordinate transform
-	real length; // Distance between cap.p0 and cap.p1.
+	Vec2f A,N; // Base vectors for coordinate transform
+	float length; // Distance between cap.p0 and cap.p1.
 
 	CapsuleBaked()=default;
 
@@ -143,22 +143,22 @@ public:
 
 // line seg functions:
 
-bool line_segment_intersect_test(const Vec2& a0, const Vec2& a1, const Vec2& b0, const Vec2& b1, float& t0, float& t1);
+bool line_segment_intersect_test(const Vec2f& a0, const Vec2f& a1, const Vec2f& b0, const Vec2f& b1, float& t0, float& t1);
 // Returns the point on the line closest to the point v.
 // Returns the interpolation factor t between the points.
 // return t=0 on fail
-real closest_point_on_line(const Vec2& p0, const Vec2& p1, const Vec2& v);
+float closest_point_on_line(const Vec2f& p0, const Vec2f& p1, const Vec2f& v);
 
 // Returns the point on the line segment closest to the point v.
 // Also returns the interpolation factor t between the points. t is clamped to [0,1]
 // Returns p0 on fail
-Vec2 closest_point(const Vec2& p0, const Vec2& p1, const Vec2& v, real& t);
+Vec2f closest_point(const Vec2f& p0, const Vec2f& p1, const Vec2f& v, float& t);
 
-Vec2 closest_point(Vec2 p0, Vec2 p1, const Vec2& v);
+Vec2f closest_point(Vec2f p0, Vec2f p1, const Vec2f& v);
 
 // ------------------------------------------------
 // Intersection tests
 
-bool intersects(const Capsule& cap, const AABB& rect);
+bool intersects(const Capsule& cap, const AABBf& rect);
 
 } // namespace emath

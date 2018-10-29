@@ -57,30 +57,30 @@ inline const Vec2T<T> vec2_angled(T a)
 
 // ------------------------------------------------
 
-inline real length_sq(const Vec2& v)
+inline float length_sq(const Vec2f& v)
 {
 	return v.x*v.x + v.y*v.y;
 }
 
-inline real sq(const Vec2& v)
+inline float sq(const Vec2f& v)
 {
 	return v.x*v.x + v.y*v.y;
 }
 
-inline real length(const Vec2& v)
+inline float length(const Vec2f& v)
 {
 	return std::sqrt(v.x*v.x + v.y*v.y);
 }
 
-inline real area(const Vec2& v)
+inline float area(const Vec2f& v)
 {
 	return v.x * v.y;
 }
 
-// The angle of the vector. angle(Vec2)(1,0)) == 0 and angle(Vec2(0,1)) == Pi/2
+// The angle of the vector. angle(Vec2f)(1,0)) == 0 and angle(Vec2f(0,1)) == Pi/2
 // Returns an angle in [-pi, +pi]
 // The invert of vec2_angled
-inline real angle(const Vec2& v)
+inline float angle(const Vec2f& v)
 {
 	if (v.x == 0 && v.y == 0) {
 		return 0;
@@ -190,7 +190,7 @@ constexpr auto operator/(const Vec2T<T>& a, S s) -> Vec2T<decltype(a.x/s)>
 	return {a.x / s, a.y / s};
 }
 #else
-constexpr Vec2 operator/(const Vec2& a, real s)
+constexpr Vec2f operator/(const Vec2f& a, float s)
 {
 	return {a.x/s, a.y/s};
 }
@@ -272,7 +272,7 @@ inline const Vec2T<T> rot90CW(const Vec2T<T>& v)
 
 // ------------------------------------------------
 
-inline Vec2 normalized(const Vec2& v)
+inline Vec2f normalized(const Vec2f& v)
 {
 	auto len = length(v);
 	if (len == 0) {
@@ -283,7 +283,7 @@ inline Vec2 normalized(const Vec2& v)
 }
 
 // Safe: normalize 0, return zero.
-inline Vec2 normalized_or_zero(const Vec2& v)
+inline Vec2f normalized_or_zero(const Vec2f& v)
 {
 	auto len = length(v);
 	if (is_zero(len)) {
@@ -294,7 +294,7 @@ inline Vec2 normalized_or_zero(const Vec2& v)
 }
 
 /// The difference in angle between two vectors b and a.
-inline real vec2_angle_diff(const Vec2& b, const Vec2& a)
+inline float vec2_angle_diff(const Vec2f& b, const Vec2f& a)
 {
 	return angle(b) - angle(a); // TODO: optimize
 }
@@ -318,7 +318,7 @@ inline Vec2T<T> mul(Vec2T<T> a, const Vec2T<T>& b)
 }
 
 // Works like in glsl
-inline Vec2 reflect(const Vec2& d, const Vec2& n)
+inline Vec2f reflect(const Vec2f& d, const Vec2f& n)
 {
 	return d - 2 * dot(d, n) * n;
 }
@@ -330,27 +330,27 @@ inline bool is_power_of_two(Vec2u vec)
 	return emath::is_power_of_two(vec.x) && emath::is_power_of_two(vec.y);
 }
 
-inline Vec2 round(Vec2 v)
+inline Vec2f round(Vec2f v)
 {
 	return {std::round(v.x), std::round(v.y)};
 }
 
-inline Vec2i round_to_int(Vec2 v)
+inline Vec2i round_to_int(Vec2f v)
 {
 	return {round_to_int(v.x), round_to_int(v.y)};
 }
 
-inline Vec2i floor_to_int(Vec2 v)
+inline Vec2i floor_to_int(Vec2f v)
 {
 	return {floor_to_int(v.x), floor_to_int(v.y)};
 }
 
-inline Vec2i ceil_to_int(Vec2 v)
+inline Vec2i ceil_to_int(Vec2f v)
 {
 	return {ceil_to_int(v.x), ceil_to_int(v.y)};
 }
 
-inline Vec2i sign(Vec2 v)
+inline Vec2i sign(Vec2f v)
 {
 	return {sign(v.x), sign(v.y)};
 }
@@ -415,7 +415,7 @@ inline T aspect_ratio(Vec2T<T> v)
 	return (float)v.x / (float)v.y;
 }
 
-inline Vec2 fit_into(Vec2 size, Vec2 container)
+inline Vec2f fit_into(Vec2f size, Vec2f container)
 {
 	if (aspect_ratio(size) > aspect_ratio(container)) {
 		return size * container.x / size.x;
@@ -426,17 +426,17 @@ inline Vec2 fit_into(Vec2 size, Vec2 container)
 
 // ------------------------------------------------
 
-inline Vec2 remap(Vec2 v, Vec2 in_min, Vec2 in_max, Vec2 out_min, Vec2 out_max)
+inline Vec2f remap(Vec2f v, Vec2f in_min, Vec2f in_max, Vec2f out_min, Vec2f out_max)
 {
-	Vec2 ret;
+	Vec2f ret;
 	ret.x = remap(v.x, in_min.x, in_max.x, out_min.x, out_max.x);
 	ret.y = remap(v.y, in_min.y, in_max.y, out_min.y, out_max.y);
 	return ret;
 }
 
-inline Vec2 remap_clamp(Vec2 v, Vec2 in_min, Vec2 in_max, Vec2 out_min, Vec2 out_max)
+inline Vec2f remap_clamp(Vec2f v, Vec2f in_min, Vec2f in_max, Vec2f out_min, Vec2f out_max)
 {
-	Vec2 ret;
+	Vec2f ret;
 	ret.x = remap_clamp(v.x, in_min.x, in_max.x, out_min.x, out_max.x);
 	ret.y = remap_clamp(v.y, in_min.y, in_max.y, out_min.y, out_max.y);
 	return ret;
@@ -454,7 +454,7 @@ inline Vec2 remap_clamp(Vec2 v, Vec2 in_min, Vec2 in_max, Vec2 out_min, Vec2 out
 } // namespace emath
 
 namespace std {
-inline bool isfinite(emath::Vec2 v)
+inline bool isfinite(emath::Vec2f v)
 {
 	return isfinite(v.x) && isfinite(v.y);
 }

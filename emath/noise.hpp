@@ -2,7 +2,6 @@
 #pragma once
 
 #include "fwd.hpp" // vec4 etc
-#include "math.hpp" // real
 
 namespace emath
 {
@@ -12,9 +11,9 @@ namespace emath
 	 returns values in [-1,+1]
 	 wraps over [0,256)
 	 */
-	real noise_2d(real x, real y);
-	real noise_3d(real x, real y, real z);
-	real noise_4d(real x, real y, real z, real w);
+	float noise_2d(float x, float y);
+	float noise_3d(float x, float y, float z);
+	float noise_4d(float x, float y, float z, float w);
 
 	// Multi-octave Simplex noise
 	// For each octave, a higher frequency/lower amplitude function will be added to the original.
@@ -37,7 +36,7 @@ namespace emath
 		return octave_noise_2d(octaves, persistence, x, seed);
 	}
 
-	inline Vec2 octave_noise_1d_to_2d(unsigned octaves, float persistence, float x, float seed = 0)
+	inline Vec2f octave_noise_1d_to_2d(unsigned octaves, float persistence, float x, float seed = 0)
 	{
 		return {
 			octave_noise_2d(octaves, persistence, x,  7 + seed),
@@ -45,7 +44,7 @@ namespace emath
 		};
 	}
 
-	inline Vec3 octave_noise_1d_to_3d(unsigned octaves, float persistence, float x, float seed = 0)
+	inline Vec3f octave_noise_1d_to_3d(unsigned octaves, float persistence, float x, float seed = 0)
 	{
 		return {
 			octave_noise_2d(octaves, persistence, x,  7 + seed),
@@ -54,7 +53,7 @@ namespace emath
 		};
 	}
 
-	inline Vec4 octave_noise_1d_to_4d(unsigned octaves, float persistence, float x, float seed = 0)
+	inline Vec4f octave_noise_1d_to_4d(unsigned octaves, float persistence, float x, float seed = 0)
 	{
 		return {
 			octave_noise_2d(octaves, persistence, x,  7 + seed),
@@ -67,12 +66,12 @@ namespace emath
 	// ----------------------------------------------------------------------
 	// 2d -> 2d, 3d, 4d:
 
-	inline float octave_noise_2d_to_1d(unsigned octaves, float persistence, Vec2 p, float seed = 0)
+	inline float octave_noise_2d_to_1d(unsigned octaves, float persistence, Vec2f p, float seed = 0)
 	{
 		return octave_noise_2d(octaves, persistence, p.x, p.y + seed);
 	}
 
-	inline Vec2 octave_noise_2d_to_2d(unsigned octaves, float persistence, Vec2 p, float seed = 0)
+	inline Vec2f octave_noise_2d_to_2d(unsigned octaves, float persistence, Vec2f p, float seed = 0)
 	{
 		return {
 			octave_noise_2d(octaves, persistence, p.x, p.y +  7 + seed),
@@ -80,7 +79,7 @@ namespace emath
 		};
 	}
 
-	inline Vec3 octave_noise_2d_to_3d(unsigned octaves, float persistence, Vec2 p, float seed = 0)
+	inline Vec3f octave_noise_2d_to_3d(unsigned octaves, float persistence, Vec2f p, float seed = 0)
 	{
 		return {
 			octave_noise_2d(octaves, persistence, p.x, p.y +  7 + seed),
@@ -89,7 +88,7 @@ namespace emath
 		};
 	}
 
-	inline Vec4 octave_noise_2d_to_4d(unsigned octaves, float persistence, Vec2 p, float seed = 0)
+	inline Vec4f octave_noise_2d_to_4d(unsigned octaves, float persistence, Vec2f p, float seed = 0)
 	{
 		return {
 			octave_noise_2d(octaves, persistence, p.x, p.y +  7 + seed),
@@ -102,12 +101,12 @@ namespace emath
 	// ----------------------------------------------------------------------
 	// 3d -> 2d, 3d, 4d:
 
-	inline float octave_noise_3d_to_1d(unsigned octaves, float persistence, Vec3 p, float seed = 0)
+	inline float octave_noise_3d_to_1d(unsigned octaves, float persistence, Vec3f p, float seed = 0)
 	{
 		return octave_noise_3d(octaves, persistence, p.x, p.y, p.z + seed);
 	}
 
-	inline Vec2 octave_noise_3d_to_2d(unsigned octaves, float persistence, Vec3 p, float seed = 0)
+	inline Vec2f octave_noise_3d_to_2d(unsigned octaves, float persistence, Vec3f p, float seed = 0)
 	{
 		return {
 			octave_noise_3d(octaves, persistence, p.x, p.y, p.z +  7 + seed),
@@ -115,7 +114,7 @@ namespace emath
 		};
 	}
 
-	inline Vec3 octave_noise_3d_to_3d(unsigned octaves, float persistence, Vec3 p, float seed = 0)
+	inline Vec3f octave_noise_3d_to_3d(unsigned octaves, float persistence, Vec3f p, float seed = 0)
 	{
 		return {
 			octave_noise_3d(octaves, persistence, p.x, p.y, p.z +  7 + seed),
@@ -124,7 +123,7 @@ namespace emath
 		};
 	}
 
-	inline Vec4 octave_noise_3d_to_4d(unsigned octaves, float persistence, Vec3 p, float seed = 0)
+	inline Vec4f octave_noise_3d_to_4d(unsigned octaves, float persistence, Vec3f p, float seed = 0)
 	{
 		return {
 			octave_noise_3d(octaves, persistence, p.x, p.y, p.z +  7 + seed),
@@ -137,12 +136,12 @@ namespace emath
 	// ----------------------------------------------------------------------
 	// 4d -> 2d, 3d, 4d:
 
-	inline float octave_noise_4d_to_1d(unsigned octaves, float persistence, Vec4 p, float seed = 0)
+	inline float octave_noise_4d_to_1d(unsigned octaves, float persistence, Vec4f p, float seed = 0)
 	{
 		return octave_noise_4d(octaves, persistence, p.x, p.y, p.z, p.w + seed);
 	}
 
-	inline Vec2 octave_noise_4d_to_2d(unsigned octaves, float persistence, Vec4 p, float seed = 0)
+	inline Vec2f octave_noise_4d_to_2d(unsigned octaves, float persistence, Vec4f p, float seed = 0)
 	{
 		return {
 			octave_noise_4d(octaves, persistence, p.x, p.y, p.z, p.w +  7 + seed),
@@ -150,7 +149,7 @@ namespace emath
 		};
 	}
 
-	inline Vec3 octave_noise_4d_to_3d(unsigned octaves, float persistence, Vec4 p, float seed = 0)
+	inline Vec3f octave_noise_4d_to_3d(unsigned octaves, float persistence, Vec4f p, float seed = 0)
 	{
 		return {
 			octave_noise_4d(octaves, persistence, p.x, p.y, p.z, p.w +  7 + seed),
@@ -159,7 +158,7 @@ namespace emath
 		};
 	}
 
-	inline Vec4 octave_noise_4d_to_4d(unsigned octaves, float persistence, Vec4 p, float seed = 0)
+	inline Vec4f octave_noise_4d_to_4d(unsigned octaves, float persistence, Vec4f p, float seed = 0)
 	{
 		return {
 			octave_noise_4d(octaves, persistence, p.x, p.y, p.z, p.w +  7 + seed),

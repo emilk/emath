@@ -15,23 +15,23 @@ namespace emath
 		/// Look along +x with up at +z
 		Direction() { }
 
-		Vec3 up() const { return _up; }
-		void set_up(Vec3 up); // Will persist 'dir()'
+		Vec3f up() const { return _up; }
+		void set_up(Vec3f up); // Will persist 'dir()'
 
-		Vec3 dir() const;
-		void set_dir(Vec3 dir);
+		Vec3f dir() const;
+		void set_dir(Vec3f dir);
 
 		// projected onto the 'up' plane
-		Vec3 right() const;
+		Vec3f right() const;
 
-		real pitch() const;
-		void set_pitch(real p);
+		float pitch() const;
+		void set_pitch(float p);
 
 		// Provided: screenspace x/y delta in radians
-		void look(Vec2 delta);
+		void look(Vec2f delta);
 
 	private:
-		Vec3  _up  {0, 0, 1};
-		Vec3  _dir {1, 0, 0};
+		Vec3f  _up  {0, 0, 1};
+		Vec3f  _dir {1, 0, 0};
 	};
 }

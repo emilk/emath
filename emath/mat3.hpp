@@ -50,12 +50,12 @@ namespace emath
 		// Static constructors
 
 		inline static Mat3T translate(T x, T y);
-		inline static Mat3T translate(const emath::Vec2& v) { return translate((T)v.x, (T)v.y); }
+		inline static Mat3T translate(const emath::Vec2f& v) { return translate((T)v.x, (T)v.y); }
 		inline static Mat3T rotate_x(T rad);
 		inline static Mat3T rotate_y(T rad);
 		inline static Mat3T rotate_z(T rad);
 		inline static Mat3T scale_2d(T x, T y);
-		inline static Mat3T scale_2d(const emath::Vec2& v) { return scale_2d((T)v.x, (T)v.y); }
+		inline static Mat3T scale_2d(const emath::Vec2f& v) { return scale_2d((T)v.x, (T)v.y); }
 		inline static Mat3T scale_2d(T s) { return scale_2d(s, s); }
 
 		inline static Mat3T zero();
@@ -63,14 +63,14 @@ namespace emath
 
 		// ------------------------------------------------
 
-		Vec3 row(uint num) const
+		Vec3f row(uint num) const
 		{
-			return Vec3(mat[num][0], mat[num][1], mat[num][2]);
+			return Vec3f(mat[num][0], mat[num][1], mat[num][2]);
 		}
 
-		Vec3 col(uint num) const
+		Vec3f col(uint num) const
 		{
-			return Vec3(mat[0][num], mat[1][num], mat[2][num]);
+			return Vec3f(mat[0][num], mat[1][num], mat[2][num]);
 		}
 	};
 
@@ -377,11 +377,11 @@ namespace emath
 		 */
 #if 0
 		// Lazy
-		assert( is_zero(dist(m.col(2), Vec3(0,0,1))) );
+		assert( is_zero(dist(m.col(2), Vec3f(0,0,1))) );
 		assert( equals(m.row(0).length(xy), m.row(1).length(xy)) );
 		assert( equals(m.col(0).length(xy), m.col(1).length(xy)) );
 
-		return Vec2(m.mat[0][0]*d[0] + m.mat[1][0]*d[1],
+		return Vec2f(m.mat[0][0]*d[0] + m.mat[1][0]*d[1],
 						m.mat[0][1]*d[0] + m.mat[1][1]*d[1]);
 #else
 		// TODO: test :)
@@ -395,7 +395,6 @@ namespace emath
 
 	// ------------------------------------------------
 
-	using Mat3  = Mat3T<real>;
 	using Mat3i = Mat3T<int>;
 	using Mat3f = Mat3T<float>;
 	using Mat3d = Mat3T<double>;

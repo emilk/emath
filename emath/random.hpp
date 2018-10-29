@@ -72,7 +72,7 @@ public:
 	}
 
 	// Gaussian distribution with mean=0 and variance=1
-	real random_normal()
+	float random_normal()
 	{
 		return _normal(_rand);
 	}
@@ -122,7 +122,7 @@ public:
 
 private:
 	using MyRNG  = std::mt19937;
-	using Normal = std::normal_distribution<real>;
+	using Normal = std::normal_distribution<float>;
 
 	MyRNG  _rand;
 	Normal _normal;

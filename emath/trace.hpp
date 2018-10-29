@@ -16,14 +16,14 @@ struct info {
 	};
 
 	Ray ray;
-	real t;        // Returned t is strictly smaller than this.
+	float t;        // Returned t is strictly smaller than this.
 
 	Flags flags = COLLIDE_ENTERING;
-	real min_t=0;  // Returned t is stricty larger than this. min_t MUST be non-negative!
-	Vec2 normal_dir; // May not be unit-length.
+	float min_t=0;  // Returned t is stricty larger than this. min_t MUST be non-negative!
+	Vec2f normal_dir; // May not be unit-length.
 	// WILL HOLD: assert(dot(ti.normal_dir, ti.ray.d) <= 0); - even for 'COLLIDE_LEAVING'
 
-	info(const Ray& r, real max_t, Flags f = COLLIDE_ENTERING) : ray(r), t(max_t), flags(f) {}
+	info(const Ray& r, float max_t, Flags f = COLLIDE_ENTERING) : ray(r), t(max_t), flags(f) {}
 
 	// helpers
 	bool entering() const { return flags & COLLIDE_ENTERING; }
@@ -51,7 +51,7 @@ bool rayAABB(info& ti, const AABB& aabb);
 /* The circle morphs from c_0 to c_1 in t=[0,1].
    Find intersection with ray, at ray.at(t) with same t.
  */
-bool ray_circleCCD(info& ti, const Circle& c_0, const Circle& c_1);
+bool ray_circle_ccd(info& ti, const Circle& c_0, const Circle& c_1);
 
 } // namespace trace
 } // namespace emath

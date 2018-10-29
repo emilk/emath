@@ -4,36 +4,36 @@
 
 namespace emath
 {
-	Plane Plane::from_point_normal(const Vec3& p, const Vec3& n)
+	Plane Plane::from_point_normal(const Vec3f& p, const Vec3f& n)
 	{
 		return Plane(n, -dot(p, n));
 	}
 
-	Plane Plane::from_points(const Vec3& p1, const Vec3& p2, const Vec3& p3)
+	Plane Plane::from_points(const Vec3f& p1, const Vec3f& p2, const Vec3f& p3)
 	{
 		return from_point_normal(p1, cross(p1-p2, p3-p2));
 	}
 
 	// NOT TESTED in 'Voxels'
-	Vec3 Plane::plane_intersection(const Plane& a, const Plane& b, const Plane& c)
+	Vec3f Plane::plane_intersection(const Plane& a, const Plane& b, const Plane& c)
 	{
 		/*
 		 Alternate homebrew solution (by emilk):
 		 Mat3 a(a.normal(), b.normal(), c.normal());
-		 Vec3 b(-a.distance(),  -b.distance(),  -c.distance());
+		 Vec3f b(-a.distance(),  -b.distance(),  -c.distance());
 		 a * x = b;, so x = inverse(a) * b; Easy as pie =)
 		 Hasn't yet been tested, but seems sound.
 		 Infact, it seems to be exactly what is going on below, only more verbose.
 		 */
 
 		Plane planes[3]	= {a,b,c};
-		Vec3  normals[3];
+		Vec3f  normals[3];
 
 		for (int i=0; i<3; ++i) {
 			normals[i] = planes[i].normal();
 		}
 
-		real det =
+		float det =
 			+ normals[0].x * normals[1].y * normals[2].z
 			+ normals[0].y * normals[1].z * normals[2].x
 			+ normals[0].z * normals[1].x * normals[2].y
@@ -42,7 +42,7 @@ namespace emath
 			- normals[0].y * normals[1].x * normals[2].z
 			- normals[0].z * normals[1].y * normals[2].x;
 
-		Vec3 top =
+		Vec3f top =
 			cross(normals[1], normals[2]) * -planes[0].distance() +
 			cross(normals[2], normals[0]) * -planes[1].distance() +
 			cross(normals[0], normals[1]) * -planes[2].distance();
@@ -62,7 +62,7 @@ namespace emath
 		m = transposed(inverted(m));
 
 		// A point on the old plane
-		Vec3 point = -_normal * _dist;
+		Vec3f point = -_normal * _dist;
 
 		//ASSERT_CODE(IsZero(0.01f*Distance(point)));
 
@@ -70,7 +70,7 @@ namespace emath
 		_normal =  m * _normal;
 
 		// Transform the point on the plane
-		Vec3 new_point = TransformCoordinate(transform, point);
+		Vec3f new_point = TransformCoordinate(transform, point);
 
 		// And calculate the distance to the new point
 		_dist = -dot(_normal, new_point);

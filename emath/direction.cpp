@@ -5,14 +5,14 @@
 
 namespace emath
 {
-	Vec3 rotate_dir_around_axis(Vec3 dir, Vec3 axis, real angle)
+	Vec3f rotate_dir_around_axis(Vec3f dir, Vec3f axis, float angle)
 	{
 		return transform(Quat::from_axis(axis, angle), dir);
 	}
 
-	void Direction::set_up(Vec3 up)
+	void Direction::set_up(Vec3f up)
 	{
-		Vec3 d = dir();
+		Vec3f d = dir();
 
 		_up = normalized(up);
 
@@ -20,29 +20,29 @@ namespace emath
 		set_dir(d);
 	}
 
-	Vec3 Direction::dir() const
+	Vec3f Direction::dir() const
 	{
 		return _dir;
 	}
 
-	void Direction::set_dir(Vec3 d)
+	void Direction::set_dir(Vec3f d)
 	{
 		_dir = d;
 		normalize(_dir);
 		set_pitch( pitch() ); // Will constrain pitch
 	}
 
-	Vec3 Direction::right() const
+	Vec3f Direction::right() const
 	{
 		return normalized( cross(dir(), up()) );
 	}
 
-	real Direction::pitch() const
+	float Direction::pitch() const
 	{
 		return std::asin(dot(dir(), up()));
 	}
 
-	void Direction::set_pitch(real p)
+	void Direction::set_pitch(float p)
 	{
 		// Constrain input:
 		const auto MaxPitch = 0.999f * 0.25f * TAUf;
@@ -53,7 +53,7 @@ namespace emath
 		normalize(_dir);                                   // Prevent drift
 	}
 
-	void Direction::look(Vec2 delta)
+	void Direction::look(Vec2f delta)
 	{
 		_dir = rotate_dir_around_axis(dir(), up(), -delta.x);
 		normalize(_dir); // Prevent drift

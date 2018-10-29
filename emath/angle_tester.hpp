@@ -37,7 +37,7 @@ public:
 	}
 
 	/// Returns true if abs(v.angle()) exceeds test angle.
-	/// Same as is_exceeded_by(v, Vec2(1,0))
+	/// Same as is_exceeded_by(v, Vec2f(1,0))
 	bool is_exceeded_by(const VecType& v) const
 	{
 		MyFloat cos = v.x;

@@ -159,12 +159,12 @@ inline Vec4T<T,Tag> mul(Vec4T<T,Tag> a, const Vec4T<T,Tag>& b)
 
 // ------------------------------------------------
 
-//	using Vec4List = std::vector<Vec4>;
+//	using Vec4List = std::vector<Vec4f>;
 
-static_assert(std::is_pod<Vec4>::value,                "is_pod");
-static_assert(std::is_standard_layout<Vec4>::value,    "is_standard_layout");
-static_assert(std::is_trivial<Vec4>::value,            "is_trivial");
-static_assert(std::is_trivially_copyable<Vec4>::value, "is_trivially_copyable");
+static_assert(std::is_pod<Vec4f>::value,                "is_pod");
+static_assert(std::is_standard_layout<Vec4f>::value,    "is_standard_layout");
+static_assert(std::is_trivial<Vec4f>::value,            "is_trivial");
+static_assert(std::is_trivially_copyable<Vec4f>::value, "is_trivially_copyable");
 
 // ------------------------------------------------
 

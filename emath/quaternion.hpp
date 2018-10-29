@@ -379,7 +379,6 @@ inline Mat4T<X> view_matrix_lerp(const Mat4T<X>& m0, const Mat4T<X>& m1, X t)
 
 using Quatf = QuaternionT<float>;
 using Quatd = QuaternionT<double>;
-using Quat = QuaternionT<real>;
 
 static_assert(sizeof(Quatf) == 4 * sizeof(float), "Pack");
 static_assert(sizeof(Quatd) == 4 * sizeof(double), "Pack");

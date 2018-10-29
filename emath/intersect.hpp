@@ -8,9 +8,9 @@ class Plane;
 namespace intersect {
 
 /// true if entire box is on the positive side of the plane.
-bool box_outside_plane(const Plane& p, const Vec3& center, const Vec3& extent);
+bool box_outside_plane(const Plane& p, const Vec3f& center, const Vec3f& extent);
 
-inline bool cube_sphere(Vec3 cube_min, Vec3 cube_max, Vec3 sphere_center, float radius)
+inline bool cube_sphere(Vec3f cube_min, Vec3f cube_max, Vec3f sphere_center, float radius)
 {
 	float dist_squared = sqr(radius);
 	if      (sphere_center.x < cube_min.x) dist_squared -= sqr(sphere_center.x - cube_min.x);
@@ -23,7 +23,7 @@ inline bool cube_sphere(Vec3 cube_min, Vec3 cube_max, Vec3 sphere_center, float 
 }
 
 /// Return true if there was an intersection.
-bool circle_circle(const Circle& a, const Circle& b, Vec2 out_solutions[2]);
+bool circle_circle(const Circle& a, const Circle& b, Vec2f out_solutions[2]);
 
 } // namespace intersect
 } // namespace emath

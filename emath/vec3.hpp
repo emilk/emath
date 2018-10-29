@@ -7,10 +7,10 @@
 
 namespace emath {
 
-static_assert(std::is_pod<Vec3>::value,                 "is_pod");
-static_assert(std::is_standard_layout<Vec3>::value,     "is_standard_layout");
-static_assert(std::is_trivial<Vec3>::value,             "is_trivial");
-static_assert(std::is_trivially_copyable<Vec3>::value,  "is_trivially_copyable");
+static_assert(std::is_pod<Vec3f>::value,                 "is_pod");
+static_assert(std::is_standard_layout<Vec3f>::value,     "is_standard_layout");
+static_assert(std::is_trivial<Vec3f>::value,             "is_trivial");
+static_assert(std::is_trivially_copyable<Vec3f>::value,  "is_trivially_copyable");
 
 static_assert(std::is_pod<Vec3u8>::value,                 "is_pod");
 static_assert(std::is_standard_layout<Vec3u8>::value,     "is_standard_layout");
@@ -197,7 +197,7 @@ inline bool operator != (const Vec3T<T, Tag>& a, const Vec3T<T, Tag>& b)
 // ------------------------------------------------
 // Utilities
 
-inline Vec3 normalized(const Vec3& v)
+inline Vec3f normalized(const Vec3f& v)
 {
 	auto len = length(v);
 	if (len == 0) {
@@ -208,43 +208,43 @@ inline Vec3 normalized(const Vec3& v)
 }
 
 // Safe: normalize 0, return zero.
-inline Vec3 normalized_or_zero(const Vec3& v)
+inline Vec3f normalized_or_zero(const Vec3f& v)
 {
 	auto len = length(v);
 	if (is_zero(len)) {
-		return Vec3(0);
+		return Vec3f(0);
 	} else {
 		return v / len;
 	}
 }
 
-inline Vec3 round(Vec3 v)
+inline Vec3f round(Vec3f v)
 {
-	return Vec3(std::round(v.x), std::round(v.y), std::round(v.z));
+	return Vec3f(std::round(v.x), std::round(v.y), std::round(v.z));
 }
 
-inline Vec3i round_to_int(Vec3 v)
+inline Vec3i round_to_int(Vec3f v)
 {
 	return Vec3i(round_to_int(v.x), round_to_int(v.y), round_to_int(v.z));
 }
 
-inline Vec3i floor_to_int(Vec3 v)
+inline Vec3i floor_to_int(Vec3f v)
 {
 	return Vec3i(floor_to_int(v.x), floor_to_int(v.y), floor_to_int(v.z));
 }
 
-inline Vec3i ceil_to_int(Vec3 v)
+inline Vec3i ceil_to_int(Vec3f v)
 {
 	return Vec3i(ceil_to_int(v.x), ceil_to_int(v.y), ceil_to_int(v.z));
 }
 
-inline Vec3i sign(Vec3 v)
+inline Vec3i sign(Vec3f v)
 {
 	return Vec3i(sign(v.x), sign(v.y), sign(v.z));
 }
 
 // Works like in glsl
-inline Vec3 reflect(const Vec3& d, const Vec3& n)
+inline Vec3f reflect(const Vec3f& d, const Vec3f& n)
 {
 	return d - 2*dot(d, n)*n;
 }
@@ -262,7 +262,7 @@ inline T max3(const Vec3T<T,Tag>& v)
 }
 
 // e.g. up is [0,0,1], we return things like [x,y,0]
-inline Vec3 project_onto(Vec3 v, Vec3 up)
+inline Vec3f project_onto(Vec3f v, Vec3f up)
 {
 	return v - up * dot(v, up);
 }
@@ -304,7 +304,7 @@ unsigned max_abs_axis(const Vec3T<T,Tag>& v)
 // ----------------------------------------------------------------------------
 
 namespace std {
-inline bool isfinite(emath::Vec3 v)
+inline bool isfinite(emath::Vec3f v)
 {
 	return isfinite(v.x) && isfinite(v.y) && isfinite(v.z);
 }

@@ -153,7 +153,6 @@ private:
 };
 
 // ------------------------------------------------
-using AABB  = AABB_T<real>;
 using AABBf = AABB_T<float>;
 using AABBd = AABB_T<double>;
 using AABBi = AABB_T<int>;
