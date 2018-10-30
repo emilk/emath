@@ -213,9 +213,9 @@ inline const AABB_T<T> AABB_T<T>::nothing()
 
 // ------------------------------------------------
 
-inline AABB lerp(const AABB& a, const AABB& b, float t)
+inline AABBf lerp(const AABBf& a, const AABBf& b, float t)
 {
-	return AABB::from_center_size(
+	return AABBf::from_center_size(
 		lerp(a.center(), b.center(), t),
 		lerp(a.size(),   b.size(),   t)
 	);

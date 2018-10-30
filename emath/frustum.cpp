@@ -9,7 +9,7 @@
 
 namespace emath {
 
-Frustum Frustum::from_matrix(const Mat4& mvp)
+Frustum Frustum::from_matrix(const Mat4f& mvp)
 {
 	return Frustum(mvp);
 }
@@ -166,7 +166,7 @@ bool Frustum::cull_box(const Vec3f& c, const Vec3f& e) const
 	#endif
 }
 
-Frustum::Frustum(const Mat4& mat)
+Frustum::Frustum(const Mat4f& mat)
 {
 	//Vec4f rows[4] = { mat.row(0), mat.row(1), mat.row(2), mat.row(3) };
 	Vec4f rows[4] = { mat.col(0), mat.col(1), mat.col(2), mat.col(3) };
@@ -200,7 +200,7 @@ Frustum::Frustum(const Mat4& mat)
 	_points[6] = Vec3f(+1, -1, +1);
 	_points[7] = Vec3f(+1, +1, +1);
 
-	Mat4 inv = inverted(mat);
+	Mat4f inv = inverted(mat);
 
 	for (uint i=0; i<NPoints; ++i) {
 		_points[i] = mul_pos(inv, _points[i]);

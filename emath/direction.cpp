@@ -7,7 +7,7 @@ namespace emath
 {
 	Vec3f rotate_dir_around_axis(Vec3f dir, Vec3f axis, float angle)
 	{
-		return transform(Quat::from_axis(axis, angle), dir);
+		return transform(Quatf::from_axis(axis, angle), dir);
 	}
 
 	void Direction::set_up(Vec3f up)

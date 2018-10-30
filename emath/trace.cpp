@@ -152,7 +152,7 @@ bool ray_capsule(info& ti, const CapsuleBaked& cap)
 			ti.normal_dir = (d.y < 0 ?  N : -N);
 
 			assert(dot(ray.d, ti.normal_dir) < 0);
-			assert(cap.line_seg.is_approached_by(ray));
+			// assert(cap.line_seg.is_approached_by(ray));
 
 			return true;
 		} else {
@@ -171,7 +171,7 @@ bool ray_capsule(info& ti, const CapsuleBaked& cap)
 
 //------------------------------------------------------------------------------
 
-bool rayAABB(info& ti, const AABB& aabb) {
+bool rayAABB(info& ti, const AABBf& aabb) {
 
 	// p and d are the position and direction in the local coordinate system
 	Vec2f p = ti.ray.origin() - aabb.center();

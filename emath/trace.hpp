@@ -46,7 +46,7 @@ struct info {
  */
 bool ray_circle(info& ti, const Circle& c);
 bool ray_capsule(info& ti, const CapsuleBaked& c);
-bool rayAABB(info& ti, const AABB& aabb);
+bool rayAABB(info& ti, const AABBf& aabb);
 
 /* The circle morphs from c_0 to c_1 in t=[0,1].
    Find intersection with ray, at ray.at(t) with same t.

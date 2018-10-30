@@ -7,6 +7,7 @@
 
 #include "mat4.hpp"
 #include "math.hpp"
+#include "vec3.hpp"
 
 namespace emath {
 

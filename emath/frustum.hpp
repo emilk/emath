@@ -21,7 +21,7 @@ class Frustum
 public:
 	Frustum() = default;
 
-	static Frustum from_matrix(const Mat4& mvp);
+	static Frustum from_matrix(const Mat4f& mvp);
 
 	bool contains_point(const Vec3f& p) const;
 
@@ -45,7 +45,7 @@ public:
 #endif
 
 private:
-	Frustum(const Mat4& mvp);
+	Frustum(const Mat4f& mvp);
 
 	enum Side
 	{

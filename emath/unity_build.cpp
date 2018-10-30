@@ -1,6 +1,6 @@
 #include "capsule.cpp"
-#include "frustum.cpp"
 #include "direction.cpp"
+#include "frustum.cpp"
 #include "intersect.cpp"
 #include "math.cpp"
 #include "noise.cpp"
