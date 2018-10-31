@@ -65,6 +65,12 @@ public:
 		return _data[_width * y + x];
 	}
 
+	template<typename Vec2Type>
+	T& operator()(const Vec2Type& v) { return operator()(v.x, v.y); }
+
+	template<typename Vec2Type>
+	T operator()(const Vec2Type& v) const { return operator()(v.x, v.y); }
+
 	// ------------------------------------------------
 
 	std::vector<float> column(int x) const
