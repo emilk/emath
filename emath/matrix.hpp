@@ -35,6 +35,10 @@ public:
 
 	// ------------------------------------------------
 
+	bool contains_coord(int x, int y) const {
+		return 0 <= x && x < _width && 0 <= y && y < _height;
+	}
+
 	T* row_ptr(int y)
 	{
 		DCHECK_F(0 <= y && y < _height, "%d not in range [0, %d)", y, _height);
