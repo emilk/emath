@@ -6,7 +6,6 @@
 
 namespace emath {
 
-/// May only contain POD types.
 template<typename T>
 class Matrix
 {
@@ -58,7 +57,7 @@ public:
 	/// (col, row)
 	T& operator()(int x, int y) { return *pointer_to(x,y); }
 
-	T operator()(int x, int y) const
+	const T& operator()(int x, int y) const
 	{
 		DCHECK_F(0 <= x && x < _width, "%d not in range [0, %d)", x, _width);
 		DCHECK_F(0 <= y && y < _height, "%d not in range [0, %d)", y, _height);
@@ -69,7 +68,7 @@ public:
 	T& operator()(const Vec2Type& v) { return operator()(v.x, v.y); }
 
 	template<typename Vec2Type>
-	T operator()(const Vec2Type& v) const { return operator()(v.x, v.y); }
+	const T& operator()(const Vec2Type& v) const { return operator()(v.x, v.y); }
 
 	// ------------------------------------------------
 
@@ -82,6 +81,23 @@ public:
 			column.push_back(_data[_width * y +   x]);
 		}
 		return column;
+	}
+
+	// ------------------------------------------------
+
+	// Keeps old values at the same place.
+	void resize(int new_w, int new_h, const T& fill = T{})
+	{
+		Matrix new_matrix(new_w, new_h);
+
+		for (int y = 0; y < new_h; ++y) {
+			for (int x = 0; x < new_w; ++x) {
+				if (x < _width && y < _height) {
+					new_matrix(x, y) = (*this)(x, y);
+				}
+			}
+		}
+		*this = std::move(new_matrix);
 	}
 
 private:
