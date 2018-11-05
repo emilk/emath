@@ -4,6 +4,8 @@
 
 #include <loguru.hpp>
 
+#include "fwd.hpp"
+
 namespace emath {
 
 template<typename T>
@@ -35,9 +37,14 @@ public:
 
 	// ------------------------------------------------
 
-	bool contains_coord(int x, int y) const {
+	bool contains_coord(int x, int y) const
+	{
 		return 0 <= x && x < _width && 0 <= y && y < _height;
 	}
+
+	bool contains_coord(const Vec2i& c) const { return contains_coord(c.x, c.y); }
+
+	// ------------------------------------------------
 
 	T* row_ptr(int y)
 	{
@@ -68,11 +75,10 @@ public:
 		return _data[_width * y + x];
 	}
 
-	template<typename Vec2Type>
-	T& operator()(const Vec2Type& v) { return operator()(v.x, v.y); }
+	// ------------------------------------------------
 
-	template<typename Vec2Type>
-	const T& operator()(const Vec2Type& v) const { return operator()(v.x, v.y); }
+	T& operator[](const Vec2i& v) { return operator()(v.x, v.y); }
+	const T& operator[](const Vec2i& v) const { return operator()(v.x, v.y); }
 
 	// ------------------------------------------------
 
