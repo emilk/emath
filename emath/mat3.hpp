@@ -133,7 +133,15 @@ namespace emath
 
 	/// The signed uniform scaling of the matrix.
 	template<typename T>
-	T scaling(const Mat3T<T>& m)
+	T scaling_2d(const Mat3T<T>& m)
+	{
+		float det2x2 = m.M(0,0) * m.M(1,1) - m.M(0,1) * m.M(1, 0);
+		return std::sqrt(std::abs(det2x2)) * (det2x2 < 0 ? -1 : +1);
+	}
+
+	/// The signed uniform scaling of the matrix.
+	template<typename T>
+	T scaling_3d(const Mat3T<T>& m)
 	{
 		return std::cbrt(emath::determinant(m));
 	}
