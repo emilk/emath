@@ -18,15 +18,23 @@ public:
 	Matrix(int width, int height, T value)
 		: _width(width), _height(height), _data(width * height, value) {}
 
+	Matrix(int width, int height, std::vector<T> data)
+		: _width(width), _height(height), _data(data) {
+		CHECK_EQ_F(width * height, _data.size());
+	}
+
 	// ------------------------------------------------
 
 	bool empty() const { return _data.empty(); }
 	int width()  const { return _width;  } ///< The number of columns
 	int height() const { return _height; } ///< The number of rows
 	int total()  const { return _width * _height; }
+	int size()   const { return _width * _height; }
 
 	T*       data()       { return _data.data(); }
 	const T* data() const { return _data.data(); }
+
+	const std::vector<T>& as_vec() const { return _data; }
 
 	// ------------------------------------------------
 
@@ -79,6 +87,18 @@ public:
 
 	T& operator[](const Vec2i& v) { return operator()(v.x, v.y); }
 	const T& operator[](const Vec2i& v) const { return operator()(v.x, v.y); }
+
+	T& operator[](const int flat) {
+		DCHECK_GE_F(flat, 0);
+		DCHECK_LT_F(flat, size());
+		return _data[flat];
+	}
+
+	const T& operator[](const int flat) const {
+		DCHECK_GE_F(flat, 0);
+		DCHECK_LT_F(flat, size());
+		return _data[flat];
+	}
 
 	// ------------------------------------------------
 
