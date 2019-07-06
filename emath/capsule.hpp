@@ -159,6 +159,6 @@ Vec2f closest_point(Vec2f p0, Vec2f p1, const Vec2f& v);
 // ------------------------------------------------
 // Intersection tests
 
-bool intersects(const Capsule& cap, const AABBf& rect);
+bool intersects(const Capsule& cap, const AABB2f& rect);
 
 } // namespace emath

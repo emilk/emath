@@ -270,8 +270,8 @@ using Quatd = QuaternionT<double>;
 
 template<typename T>
 class AABB_T;
-using AABBf = AABB_T<float>;
-using AABBd = AABB_T<double>;
+using AABB2f = AABB_T<float>;
+using AABB2d = AABB_T<double>;
 
 // ----------------------------------------------------------------------------
 

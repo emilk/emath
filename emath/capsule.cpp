@@ -164,7 +164,7 @@ bool Capsule::intersects(const Capsule& a, const Capsule& b)
 
 // ------------------------------------------------
 
-bool intersects(const Capsule& cap, const AABBf& rect)
+bool intersects(const Capsule& cap, const AABB2f& rect)
 {
 	// TODO: more exact please
 	return cap.line_seg.distance_sq(rect.center()) < sqr(cap.radius() + 0.5f * length( rect.size() ));

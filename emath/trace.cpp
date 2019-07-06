@@ -171,7 +171,7 @@ bool ray_capsule(info& ti, const CapsuleBaked& cap)
 
 //------------------------------------------------------------------------------
 
-bool rayAABB(info& ti, const AABBf& aabb) {
+bool rayAABB(info& ti, const AABB2f& aabb) {
 
 	// p and d are the position and direction in the local coordinate system
 	Vec2f p = ti.ray.origin() - aabb.center();

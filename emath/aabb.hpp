@@ -153,9 +153,9 @@ private:
 };
 
 // ------------------------------------------------
-using AABBf = AABB_T<float>;
-using AABBd = AABB_T<double>;
-using AABBi = AABB_T<int>;
+using AABB2f = AABB_T<float>;
+using AABB2d = AABB_T<double>;
+using AABB2i = AABB_T<int>;
 
 // ------------------------------------------------
 // Implementations
@@ -213,9 +213,9 @@ inline const AABB_T<T> AABB_T<T>::nothing()
 
 // ------------------------------------------------
 
-inline AABBf lerp(const AABBf& a, const AABBf& b, float t)
+inline AABB2f lerp(const AABB2f& a, const AABB2f& b, float t)
 {
-	return AABBf::from_center_size(
+	return AABB2f::from_center_size(
 		lerp(a.center(), b.center(), t),
 		lerp(a.size(),   b.size(),   t)
 	);
