@@ -13,14 +13,26 @@ class Matrix
 {
 public:
 	Matrix() : _width(0), _height(0) {}
+
 	Matrix(int width, int height)
 		: _width(width), _height(height), _data(width * height) {}
+
 	Matrix(int width, int height, T value)
 		: _width(width), _height(height), _data(width * height, value) {}
 
 	Matrix(int width, int height, std::vector<T> data)
-		: _width(width), _height(height), _data(data) {
+		: _width(width), _height(height), _data(data)
+	{
 		CHECK_EQ_F(width * height, _data.size());
+	}
+
+	Matrix(int width, int height, const T* data)
+		: _width(width), _height(height)
+	{
+		if (width * height > 0) {
+			CHECK_NOTNULL_F(data);
+			_data = std::vector<T>(data, data + width * height);
+		}
 	}
 
 	// ------------------------------------------------
@@ -142,10 +154,8 @@ template<typename T>
 Matrix<T> operator*(const Matrix<T>& m, const T factor)
 {
 	Matrix<T> result(m.width(), m.height());
-	for (int y = 0; y < m.height(); ++y) {
-		for (int x = 0; x < m.width(); ++x) {
-			result(x, y) = m(x, y) * factor;
-		}
+	for (int i = 0; i < m.size(); ++i) {
+		result[i] = m[i] * factor;
 	}
 	return result;
 }
