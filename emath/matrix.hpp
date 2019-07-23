@@ -12,6 +12,10 @@ template<typename T>
 class Matrix
 {
 public:
+	using value_type = T;
+	using const_iterator = typename std::vector<T>::const_iterator;
+	using iterator = typename std::vector<T>::iterator;
+
 	Matrix() : _width(0), _height(0) {}
 
 	Matrix(int width, int height)
@@ -35,6 +39,23 @@ public:
 		}
 	}
 
+	Matrix(std::initializer_list<std::initializer_list<T>> rows)
+	{
+		_height = rows.size();
+		if (rows.size() == 0) {
+			_width = 0;
+			return;
+		}
+		_width = rows.begin()->size();
+		_data.reserve(_width * _height);
+		for (const auto& row : rows) {
+			CHECK_EQ_F(row.size(), _width);
+			for (const auto& value : row) {
+				_data.push_back(value);
+			}
+		}
+	}
+
 	// ------------------------------------------------
 
 	bool empty() const { return _data.empty(); }
@@ -50,10 +71,12 @@ public:
 
 	// ------------------------------------------------
 
-	const T* begin() const { return data();           }
-	T*       begin()       { return data();           }
-	const T* end()   const { return data() + total(); }
-	T*       end()         { return data() + total(); }
+	const T* begin()  const { return data();           }
+	const T* cbegin() const { return data();           }
+	T*       begin()        { return data();           }
+	const T* end()    const { return data() + total(); }
+	const T* cend()   const { return data() + total(); }
+	T*       end()          { return data() + total(); }
 
 	// ------------------------------------------------
 
@@ -164,6 +187,30 @@ template<typename T>
 Matrix<T> operator/(const Matrix<T>& m, const T factor)
 {
 	return m * (1 / factor);
+}
+
+template<typename T>
+void operator*=(Matrix<T>& m, const T factor)
+{
+	for (auto& v : m) {
+		v *= factor;
+	}
+}
+
+template<typename T>
+void operator/=(Matrix<T>& m, const T factor)
+{
+	m *= (1 / factor);
+}
+
+template<typename T>
+Matrix<T> operator-(const Matrix<T>& m)
+{
+	Matrix<T> result(m.width(), m.height());
+	for (int i = 0; i < m.size(); ++i) {
+		result[i] = -m[i];
+	}
+	return result;
 }
 
 // ----------------------------------------------------------------------------
