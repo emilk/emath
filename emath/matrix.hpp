@@ -12,9 +12,9 @@ template<typename T>
 class Matrix
 {
 public:
-	using value_type = T;
-	using const_iterator = typename std::vector<T>::const_iterator;
-	using iterator = typename std::vector<T>::iterator;
+	typedef       T  value_type;
+	typedef const T* const_iterator;
+	typedef       T* iterator;
 
 	Matrix() : _width(0), _height(0) {}
 
@@ -61,8 +61,7 @@ public:
 	bool empty() const { return _data.empty(); }
 	int width()  const { return _width;  } ///< The number of columns
 	int height() const { return _height; } ///< The number of rows
-	int total()  const { return _width * _height; }
-	int size()   const { return _width * _height; }
+	int size()   const { return static_cast<int>(_data.size()); }
 
 	T*       data()       { return _data.data(); }
 	const T* data() const { return _data.data(); }
@@ -71,12 +70,12 @@ public:
 
 	// ------------------------------------------------
 
-	const T* begin()  const { return data();           }
-	const T* cbegin() const { return data();           }
-	T*       begin()        { return data();           }
-	const T* end()    const { return data() + total(); }
-	const T* cend()   const { return data() + total(); }
-	T*       end()          { return data() + total(); }
+	const T* begin()  const { return data();          }
+	const T* cbegin() const { return data();          }
+	T*       begin()        { return data();          }
+	const T* end()    const { return data() + size(); }
+	const T* cend()   const { return data() + size(); }
+	T*       end()          { return data() + size(); }
 
 	// ------------------------------------------------
 
@@ -163,6 +162,18 @@ public:
 			}
 		}
 		*this = std::move(new_matrix);
+	}
+
+	// ------------------------------------------------
+
+	template<typename X>
+	Matrix<X> cast() const
+	{
+		auto m = Matrix<X>(_width, _height);
+		for (int i = 0; i < _data.size(); ++i) {
+			m[i] = static_cast<X>(_data[i]);
+		}
+		return m;
 	}
 
 private:
