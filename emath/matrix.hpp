@@ -176,6 +176,17 @@ public:
 		return m;
 	}
 
+	Matrix<T> transpose() const
+	{
+		auto m = Matrix<T>(_height, _width);
+		for (int y = 0; y < _height; ++y) {
+			for (int x = 0; x < _width; ++x) {
+				m(y, x) = (*this)(x, y);
+			}
+		}
+		return m;
+	}
+
 private:
 	std::vector<T> _data;
 	int            _width;
