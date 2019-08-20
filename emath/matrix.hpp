@@ -66,6 +66,8 @@ public:
 	T*       data()       { return _data.data(); }
 	const T* data() const { return _data.data(); }
 
+	// NOTE: you may NOT change the length of the returned vector, ONLY the contents!
+	std::vector<T>& as_vec() { return _data; }
 	const std::vector<T>& as_vec() const { return _data; }
 
 	// ------------------------------------------------
